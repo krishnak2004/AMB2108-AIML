@@ -1,0 +1,118 @@
+Generated at: 2026-04-16T13:54:04
+
+Positive large-image run:
+{
+  "case_name": "positive_large",
+  "status": "ok",
+  "headline": "Weeds detected in the uploaded field image",
+  "confidence": 0.815,
+  "weed_count": 2,
+  "crop_count": 0,
+  "total_detections": 2,
+  "notes": [
+    "2 weed detection(s) were found by the pretrained model.",
+    "Bounding boxes highlight the plant regions predicted as weeds."
+  ],
+  "model_path": "C:\\Users\\Shreya\\OneDrive\\\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\\New project\\models\\weedblaster-vision-yolov8s.pt",
+  "model_source": "https://huggingface.co/NvMayMay/weedblaster-vision-yolov8s/resolve/main/best.pt",
+  "original_size": [
+    738,
+    440
+  ],
+  "processed_size": [
+    738,
+    440
+  ],
+  "auto_upscaled": false,
+  "detections": [
+    {
+      "Class": "Weed",
+      "Confidence": 0.815,
+      "x1": 125,
+      "y1": 8,
+      "x2": 736,
+      "y2": 429
+    },
+    {
+      "Class": "Weed",
+      "Confidence": 0.569,
+      "x1": 0,
+      "y1": 7,
+      "x2": 632,
+      "y2": 426
+    }
+  ]
+}
+
+Small accepted image run:
+{
+  "case_name": "small_auto_upscaled",
+  "status": "ok",
+  "headline": "Weeds detected in the uploaded field image",
+  "confidence": 0.787,
+  "weed_count": 2,
+  "crop_count": 0,
+  "total_detections": 2,
+  "notes": [
+    "Image was auto-upscaled from 369 x 220 to 376 x 224 before analysis.",
+    "2 weed detection(s) were found by the pretrained model.",
+    "Bounding boxes highlight the plant regions predicted as weeds."
+  ],
+  "model_path": "C:\\Users\\Shreya\\OneDrive\\\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\\New project\\models\\weedblaster-vision-yolov8s.pt",
+  "model_source": "https://huggingface.co/NvMayMay/weedblaster-vision-yolov8s/resolve/main/best.pt",
+  "original_size": [
+    369,
+    220
+  ],
+  "processed_size": [
+    376,
+    224
+  ],
+  "auto_upscaled": true,
+  "detections": [
+    {
+      "Class": "Weed",
+      "Confidence": 0.787,
+      "x1": 63,
+      "y1": 4,
+      "x2": 375,
+      "y2": 218
+    },
+    {
+      "Class": "Weed",
+      "Confidence": 0.551,
+      "x1": 0,
+      "y1": 3,
+      "x2": 322,
+      "y2": 217
+    }
+  ]
+}
+
+Invalid dark-image run:
+{
+  "case_name": "invalid_dark",
+  "status": "invalid",
+  "headline": "Image not accepted for reliable analysis",
+  "confidence": 0.0,
+  "weed_count": 0,
+  "crop_count": 0,
+  "total_detections": 0,
+  "notes": [
+    "Image was auto-upscaled from 369 x 220 to 376 x 224 before analysis.",
+    "The image is too dark. Use a brighter daylight field image.",
+    "The image appears too blurred or flat. Use a clearer field photo."
+  ],
+  "model_path": "C:\\Users\\Shreya\\OneDrive\\\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\\New project\\models\\weedblaster-vision-yolov8s.pt",
+  "model_source": "https://huggingface.co/NvMayMay/weedblaster-vision-yolov8s/resolve/main/best.pt",
+  "original_size": [
+    369,
+    220
+  ],
+  "processed_size": [
+    376,
+    224
+  ],
+  "auto_upscaled": true,
+  "detections": []
+}

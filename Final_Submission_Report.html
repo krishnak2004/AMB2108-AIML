@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Submission Report - Weed Detection</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm;
+    }
+    :root {
+      --ink: #1f2933;
+      --muted: #52606d;
+      --accent: #165c40;
+      --accent-soft: #e9f3ed;
+      --line: #d9e2ec;
+      --paper: #ffffff;
+      --soft: #f8fbf9;
+      --soft-gold: #f3ead8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 12pt;
+      line-height: 1.55;
+    }
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 22px 12px 60px;
+    }
+    .page-break { page-break-before: always; }
+    .cover {
+      min-height: 1000px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top left, rgba(213, 236, 221, 0.72), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(244, 229, 198, 0.72), transparent 32%),
+        #fbfcfb;
+    }
+    .cover .eyebrow {
+      font-size: 10pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .cover h1 {
+      font-size: 26pt;
+      line-height: 1.2;
+      margin: 0 0 14px;
+    }
+    .cover h2 {
+      font-size: 15pt;
+      color: var(--muted);
+      margin: 0 0 30px;
+      font-weight: normal;
+    }
+    .meta-card {
+      max-width: 620px;
+      margin: 0 auto;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+    }
+    .meta-card p { margin: 10px 0; }
+    h2.section-title {
+      margin-top: 36px;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--line);
+      color: var(--accent);
+      font-size: 17pt;
+    }
+    h3 {
+      margin-top: 24px;
+      margin-bottom: 8px;
+      font-size: 13.5pt;
+      color: var(--ink);
+    }
+    p {
+      margin: 10px 0;
+      text-align: justify;
+    }
+    ul, ol {
+      margin: 8px 0 12px 22px;
+    }
+    li { margin: 4px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 11pt;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #f8fafc; }
+    .boxed {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 14px 0 20px;
+    }
+    .figure {
+      margin: 20px 0 24px;
+      border: 1px solid var(--line);
+      background: #fcfdfd;
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+    .caption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 10.5pt;
+      text-align: center;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0 24px;
+    }
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: linear-gradient(135deg, #ffffff, #f5faf7);
+      text-align: center;
+    }
+    .metric-card .label {
+      font-size: 10pt;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .metric-card .value {
+      font-size: 16pt;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    pre.code-block {
+      margin: 14px 0 20px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #f6f8fa;
+      overflow-x: auto;
+      font-size: 9.8pt;
+      line-height: 1.48;
+      font-family: "Consolas", "Courier New", monospace;
+      white-space: pre-wrap;
+    }
+    .small-note {
+      color: var(--muted);
+      font-size: 10.5pt;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="cover">
+      <div class="eyebrow">Final Project Report</div>
+      <h1>Image-Based Weed Detection in Crop Fields Using Pretrained YOLO and Dual User Interfaces</h1>
+      <h2>A Word-Format Final Submission Report for Academic Evaluation</h2>
+      <div class="meta-card">
+        <p><strong>Student Name:</strong> [Your Name]</p>
+        <p><strong>USN:</strong> [Your USN]</p>
+        <p><strong>Department:</strong> [Department Name]</p>
+        <p><strong>Institution:</strong> [College / University Name]</p>
+        <p><strong>Guide / Faculty:</strong> [Guide Name]</p>
+        <p><strong>Academic Year:</strong> 2025-2026</p>
+        <p><strong>Date of Submission:</strong> April 16, 2026</p>
+      </div>
+      <p class="small-note">Replace the bracketed fields before final submission.</p>
+    </section>
+
+    <h2 class="section-title page-break">Certificate</h2>
+    <div class="boxed">
+      <p>
+        This is to certify that the project entitled <strong>"Image-Based Weed Detection in Crop Fields Using
+        Pretrained YOLO and Dual User Interfaces"</strong> is a bonafide work carried out by <strong>[Your Name]</strong>
+        during the academic year 2025-2026 in partial fulfillment of the academic requirements under our guidance.
+      </p>
+      <p><strong>Guide Signature:</strong> ____________________</p>
+      <p><strong>Head of Department:</strong> ____________________</p>
+    </div>
+
+    <h2 class="section-title page-break">Declaration</h2>
+    <div class="boxed">
+      <p>
+        I hereby declare that this project report is my original work and has not been submitted elsewhere for any
+        other academic award. All references and supporting sources used in this work have been properly acknowledged.
+      </p>
+      <p><strong>Student Signature:</strong> ____________________</p>
+    </div>
+
+    <h2 class="section-title page-break">Acknowledgement</h2>
+    <p>
+      I express my sincere gratitude to my guide, faculty members, and institution for their support, encouragement,
+      and technical guidance during the completion of this project. I also thank my friends and family for their
+      constant motivation. The published research papers, open-source datasets, and public pretrained model sources
+      referenced in this work were especially useful in improving the project from a basic feature-based prototype into
+      a more practical image-based weed-detection system.
+    </p>
+
+    <h2 class="section-title page-break">Abstract</h2>
+    <p>
+      Weed infestation reduces agricultural productivity because weeds compete with crops for water, nutrients,
+      sunlight, and space. Manual inspection is time-consuming, while blanket herbicide spraying is inefficient and
+      environmentally harmful. This project presents a final image-based weed detection system that uses a pretrained
+      YOLO model as the primary detector and offers both a Streamlit application and a lightweight browser demo for user
+      interaction. The system accepts crop-field RGB images, validates them for practical quality issues, and now uses a
+      relaxed upload policy: very tiny images are rejected, while smaller usable images are auto-upscaled to the
+      detector's preferred minimum size before inference. The application also computes supporting vegetation analytics
+      such as Excess Green segmentation, vegetation coverage, texture variation, component density, and row alignment.
+      During local verification, the larger accepted test image produced 2 weed detections with a top
+      confidence of 81.5%, while the smaller accepted image was auto-upscaled from
+      369 x 220 to 376 x 224
+      pixels and still returned 2 weed detections. The final report includes the full source code,
+      real program output, analytical figures, UI views, and the corrected workflow used for submission.
+    </p>
+
+    <h2 class="section-title page-break">Table of Contents</h2>
+    <ol>
+      <li>Certificate</li>
+      <li>Declaration</li>
+      <li>Acknowledgement</li>
+      <li>Abstract</li>
+      <li>Chapter 1: Introduction</li>
+      <li>Chapter 2: Literature Survey</li>
+      <li>Chapter 3: Existing System and Proposed System</li>
+      <li>Chapter 4: System Design and Requirements</li>
+      <li>Chapter 5: Methodology</li>
+      <li>Chapter 6: User Interface and Implementation</li>
+      <li>Chapter 7: Execution, Output, and Analysis</li>
+      <li>Chapter 8: Complete Program Code</li>
+      <li>Chapter 9: Applications</li>
+      <li>Chapter 10: Conclusion and Future Scope</li>
+      <li>References</li>
+    </ol>
+
+    <h2 class="section-title">List of Figures</h2>
+    <ol>
+      <li>Workflow of the final weed detection system</li>
+      <li>System architecture</li>
+      <li>Browser demo interface</li>
+      <li>Primary Streamlit interface</li>
+      <li>Program output after running the detector</li>
+      <li>Primary YOLO detection example</li>
+      <li>Secondary Random Forest analytics metrics</li>
+      <li>Secondary Random Forest confusion matrix</li>
+      <li>Secondary Random Forest feature importance</li>
+    </ol>
+
+    <h2 class="section-title page-break">Chapter 1: Introduction</h2>
+    <p>
+      Weeds are unwanted plants that reduce agricultural productivity by competing with cultivated crops for essential
+      resources. Traditional weed monitoring depends heavily on manual field inspection or broad chemical spraying. In
+      precision agriculture, there is a strong need for image-based decision systems that can identify weed presence
+      from field images and support more targeted intervention.
+    </p>
+    <p>
+      This project began as a simpler feature-based prototype but was redesigned into a more practical image-driven
+      pipeline. The final implementation now allows users to upload crop-field images, checks whether those images are
+      suitable for analysis, runs a pretrained YOLO weed detector, and displays the result alongside supporting
+      vegetation analytics. The submission also includes a lightweight browser demo interface that mirrors the upload
+      policy and user-facing behavior for presentation purposes.
+    </p>
+    <div class="boxed">
+      <p><strong>Problem Statement:</strong> Build a user-friendly system that accepts crop-field images, validates
+      image quality, detects weeds using a pretrained object-detection model, and displays the result with visual
+      evidence and analytical explanation.</p>
+      <p><strong>Objectives:</strong></p>
+      <ul>
+        <li>Provide a primary working weed detector with a simple upload-based user interface.</li>
+        <li>Support smaller usable images through automatic upscaling instead of over-restrictive rejection.</li>
+        <li>Display explainable analytics such as vegetation masks and feature summaries.</li>
+        <li>Verify the program on accepted and rejected scenarios and include the real outputs in the final report.</li>
+        <li>Package the final submission in Word format with full program code.</li>
+      </ul>
+    </div>
+
+    <h2 class="section-title">Chapter 2: Literature Survey</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Reference</th>
+          <th>Main Contribution</th>
+          <th>How It Influenced This Project</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>DeepWeeds (Scientific Reports, 2019)</td>
+          <td>Benchmark field-image weed dataset and image-based baseline</td>
+          <td>Motivated the shift from synthetic tabular-only logic to field-image detection</td>
+        </tr>
+        <tr>
+          <td>Machine learning for weed-plant discrimination in agriculture 5.0 (2023)</td>
+          <td>Comprehensive review of weed discrimination methods in agriculture</td>
+          <td>Supported the methodology, validation discussion, and literature framing</td>
+        </tr>
+        <tr>
+          <td>Weed Detection Using Deep Learning: A Systematic Literature Review (Sensors, 2023)</td>
+          <td>Summarizes modern deep learning strategies for weed detection</td>
+          <td>Supported the choice of an object-detection based final system</td>
+        </tr>
+        <tr>
+          <td>IRJET-V11I5168 and IJCRT2203197</td>
+          <td>Student-provided supporting engineering/review references</td>
+          <td>Used as secondary background references for report strengthening</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      The literature consistently shows that real field-image analysis and deep learning based detectors are more
+      suitable for practical weed recognition than purely synthetic tabular experiments. This directly shaped the final
+      redesign of the project.
+    </p>
+
+    <h2 class="section-title">Chapter 3: Existing System and Proposed System</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>Earlier / Existing Approach</th>
+          <th>Final Proposed System</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Input</td><td>Feature-only or manual observation</td><td>RGB crop-field image upload</td></tr>
+        <tr><td>Primary model</td><td>Random Forest prototype</td><td>Pretrained YOLO weed detector</td></tr>
+        <tr><td>User interface</td><td>Limited or absent</td><td>Streamlit app + lightweight browser demo</td></tr>
+        <tr><td>Image handling</td><td>Strict rejection of small images</td><td>Reject only tiny unusable images, auto-upscale smaller usable images</td></tr>
+        <tr><td>Output</td><td>Label only</td><td>Bounding boxes, notes, analytics, confidence, and report-ready visuals</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Chapter 4: System Design and Requirements</h2>
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Requirement</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Hardware</td><td>Laptop or desktop, standard RGB crop-field image source</td></tr>
+        <tr><td>Software</td><td>Python 3.13, Streamlit, Pillow, NumPy, Pandas, Requests, Torch, Torchvision, Ultralytics, scikit-learn, Joblib</td></tr>
+        <tr><td>Primary UI</td><td>Streamlit web application</td></tr>
+        <tr><td>Secondary UI</td><td>Static browser demo page using HTML, CSS, and JavaScript</td></tr>
+        <tr><td>Model file</td><td><code>models/weedblaster-vision-yolov8s.pt</code></td></tr>
+      </tbody>
+    </table>
+    <div class='figure'><img src='report_assets/project_workflow.svg' alt='Figure 1. Workflow of the final weed detection system.'><div class='caption'>Figure 1. Workflow of the final weed detection system.</div></div>
+    <div class='figure'><img src='report_assets/system_architecture.svg' alt='Figure 2. System architecture of the final weed detection system.'><div class='caption'>Figure 2. System architecture of the final weed detection system.</div></div>
+
+    <h2 class="section-title page-break">Chapter 5: Methodology</h2>
+    <h3>5.1 Input Validation</h3>
+    <p>
+      The final system accepts images in PNG, JPG, JPEG, and WEBP formats. Images whose shorter side is below
+      <strong>128 pixels</strong> are rejected as too small for meaningful analysis. Images whose shorter side falls
+      between <strong>128 pixels and 223 pixels</strong> are accepted and auto-upscaled to the detector's preferred
+      minimum size of <strong>224 pixels</strong>. Brightness, exposure, vegetation visibility, blur, and scene quality
+      are also checked before inference.
+    </p>
+    <h3>5.2 Pretrained Detection</h3>
+    <p>
+      The primary deployed detector is a pretrained YOLO model loaded through the <code>ultralytics</code> package. The
+      model is downloaded once, stored locally, and used for CPU-based inference on uploaded images. If the detector
+      produces weed-class bounding boxes, the application reports weed presence and shows the annotated image.
+    </p>
+    <h3>5.3 Supporting Analytics</h3>
+    <p>
+      In parallel, the application computes RGB vegetation analytics using Excess Green segmentation. The analytics
+      module produces vegetation coverage, Excess Green statistics, texture variation, component density, and row
+      alignment. These features are shown to the user for explanation and are also used by the older Random Forest
+      fallback bundle if the YOLO detector becomes unavailable.
+    </p>
+    <h3>5.4 Dual Interface Design</h3>
+    <p>
+      The Streamlit application is the primary working system for final detection. A secondary browser demo interface is
+      maintained to present the upload flow and browser-side validation behavior. Both interfaces now follow the same
+      image acceptance rules to reduce confusion during demonstration.
+    </p>
+
+    <h2 class="section-title">Chapter 6: User Interface and Implementation</h2>
+    <h3>6.1 Libraries Used</h3>
+    <ul><li><code>streamlit&gt;=1.32</code></li><li><code>pillow&gt;=10.0</code></li><li><code>numpy&gt;=1.24</code></li><li><code>pandas&gt;=2.0</code></li><li><code>scikit-learn&gt;=1.4</code></li><li><code>joblib&gt;=1.3</code></li><li><code>requests&gt;=2.31</code></li><li><code>torch&gt;=2.1</code></li><li><code>torchvision&gt;=0.16</code></li><li><code>ultralytics&gt;=8.4</code></li></ul>
+    <h3>6.2 Final Interfaces</h3>
+    <div class='figure'><img src='report_assets/browser_ui_upload.png' alt='Figure 3. Lightweight browser demo interface after the upload-policy update.'><div class='caption'>Figure 3. Lightweight browser demo interface after the upload-policy update.</div></div>
+    <div class='figure'><img src='report_assets/sample_program_output.png' alt='Figure 4. Primary Streamlit application view showing the executed weed-detection result.'><div class='caption'>Figure 4. Primary Streamlit application view showing the executed weed-detection result.</div></div>
+    <p>
+      The browser demo is included to show a lightweight presentation layer, while the Streamlit interface is the
+      primary working implementation that runs the pretrained YOLO detector and the supporting analytics. The final
+      report treats the Streamlit app as the main submission UI.
+    </p>
+    <h3>6.3 Model and Runtime Configuration</h3>
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Details</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Primary deployed model</td><td>Pretrained YOLO weed detector</td></tr>
+        <tr><td>Weights file</td><td><code>models/weedblaster-vision-yolov8s.pt</code></td></tr>
+        <tr><td>Inference backend</td><td>CPU via Torch and Ultralytics</td></tr>
+        <tr><td>Default confidence threshold</td><td>0.25</td></tr>
+        <tr><td>Preferred minimum input size</td><td>224 px on the shorter side</td></tr>
+        <tr><td>Absolute rejection threshold</td><td>128 px on the shorter side</td></tr>
+        <tr><td>Secondary fallback</td><td>Random Forest analytics bundle</td></tr>
+      </tbody>
+    </table>
+    <div class="boxed">
+      <p><strong>How the final interface works:</strong></p>
+      <ol>
+        <li>The user opens the Streamlit app or browser demo and uploads a crop-field image.</li>
+        <li>The system validates file type, image size, exposure, and field suitability.</li>
+        <li>Accepted smaller images are auto-upscaled if needed before inference.</li>
+        <li>The YOLO model predicts weed boxes and returns the final weed/no-weed decision.</li>
+        <li>The UI shows the original image, annotated output, vegetation mask, overlay, summary counts, and notes.</li>
+      </ol>
+    </div>
+
+    <h2 class="section-title page-break">Chapter 7: Execution, Output, and Analysis</h2>
+    <div class="metric-grid">
+      <div class="metric-card"><div class="label">Large Accepted Run</div><div class="value">2 weeds</div></div>
+      <div class="metric-card"><div class="label">Top Confidence</div><div class="value">81.5%</div></div>
+      <div class="metric-card"><div class="label">Small Auto-Upscaled Run</div><div class="value">2 weeds</div></div>
+      <div class="metric-card"><div class="label">Reject Threshold</div><div class="value">128 px</div></div>
+    </div>
+    <p>
+      The final detector was executed on three verification scenarios: a larger accepted field image, a smaller usable
+      field image that triggered auto-upscaling, and a deliberately dark invalid image. The larger accepted run
+      produced 2 weed detections with a top confidence of 81.5%. The
+      smaller accepted run was automatically upscaled from 369 x 220 to
+      376 x 224 pixels and still returned 2 weed detections.
+      The dark validation image was rejected as unsuitable, demonstrating that the relaxed policy no longer blocks
+      modestly small images but still protects the detector from poor-quality inputs.
+    </p>
+    <div class='figure'><img src='report_assets/runtime_auto_upscaled_detection.png' alt='Figure 5. Annotated detector output from the smaller accepted image after auto-upscaling.'><div class='caption'>Figure 5. Annotated detector output from the smaller accepted image after auto-upscaling.</div></div>
+    <div class='figure'><img src='report_assets/yolo_detection_example.png' alt='Figure 6. Example primary YOLO detection output from the larger accepted image.'><div class='caption'>Figure 6. Example primary YOLO detection output from the larger accepted image.</div></div>
+    <h3>7.1 Verification Scenario: Larger Accepted Image</h3>
+    <table><tbody><tr><td>Status</td><td>ok</td></tr>
+<tr><td>Headline</td><td>Weeds detected in the uploaded field image</td></tr>
+<tr><td>Original size</td><td>738 x 440 px</td></tr>
+<tr><td>Processed size</td><td>738 x 440 px</td></tr>
+<tr><td>Auto-upscaled</td><td>No</td></tr>
+<tr><td>Weed detections</td><td>2</td></tr>
+<tr><td>Crop detections</td><td>0</td></tr>
+<tr><td>Top confidence</td><td>81.5%</td></tr></tbody></table>
+    <ul><li>2 weed detection(s) were found by the pretrained model.</li><li>Bounding boxes highlight the plant regions predicted as weeds.</li></ul>
+    <table><thead><tr><th>Class</th><th>Confidence</th><th>x1</th><th>y1</th><th>x2</th><th>y2</th></tr></thead><tbody><tr><td>Weed</td><td>0.815</td><td>125</td><td>8</td><td>736</td><td>429</td></tr><tr><td>Weed</td><td>0.569</td><td>0</td><td>7</td><td>632</td><td>426</td></tr></tbody></table>
+    <h3>7.2 Verification Scenario: Smaller Accepted and Auto-Upscaled Image</h3>
+    <table><tbody><tr><td>Status</td><td>ok</td></tr>
+<tr><td>Headline</td><td>Weeds detected in the uploaded field image</td></tr>
+<tr><td>Original size</td><td>369 x 220 px</td></tr>
+<tr><td>Processed size</td><td>376 x 224 px</td></tr>
+<tr><td>Auto-upscaled</td><td>Yes</td></tr>
+<tr><td>Weed detections</td><td>2</td></tr>
+<tr><td>Crop detections</td><td>0</td></tr>
+<tr><td>Top confidence</td><td>78.7%</td></tr></tbody></table>
+    <ul><li>Image was auto-upscaled from 369 x 220 to 376 x 224 before analysis.</li><li>2 weed detection(s) were found by the pretrained model.</li><li>Bounding boxes highlight the plant regions predicted as weeds.</li></ul>
+    <table><thead><tr><th>Class</th><th>Confidence</th><th>x1</th><th>y1</th><th>x2</th><th>y2</th></tr></thead><tbody><tr><td>Weed</td><td>0.787</td><td>63</td><td>4</td><td>375</td><td>218</td></tr><tr><td>Weed</td><td>0.551</td><td>0</td><td>3</td><td>322</td><td>217</td></tr></tbody></table>
+    <h3>7.3 Verification Scenario: Invalid Dark Image</h3>
+    <table><tbody><tr><td>Status</td><td>invalid</td></tr>
+<tr><td>Headline</td><td>Image not accepted for reliable analysis</td></tr>
+<tr><td>Original size</td><td>369 x 220 px</td></tr>
+<tr><td>Processed size</td><td>376 x 224 px</td></tr>
+<tr><td>Auto-upscaled</td><td>Yes</td></tr>
+<tr><td>Weed detections</td><td>0</td></tr>
+<tr><td>Crop detections</td><td>0</td></tr>
+<tr><td>Top confidence</td><td>0.0%</td></tr></tbody></table>
+    <ul><li>Image was auto-upscaled from 369 x 220 to 376 x 224 before analysis.</li><li>The image is too dark. Use a brighter daylight field image.</li><li>The image appears too blurred or flat. Use a clearer field photo.</li></ul>
+    <div class='figure'><img src='report_assets/runtime_invalid_dark_input.png' alt='Figure 7. Dark invalid input used to verify rejection behavior.'><div class='caption'>Figure 7. Dark invalid input used to verify rejection behavior.</div></div>
+    <h3>7.4 Supporting Analytical Figures</h3>
+    <div class='figure'><img src='report_assets/model_metrics.png' alt='Figure 8. Metrics of the secondary Random Forest analytics bundle retained for supporting analysis.'><div class='caption'>Figure 8. Metrics of the secondary Random Forest analytics bundle retained for supporting analysis.</div></div>
+    <div class='figure'><img src='report_assets/confusion_matrix.png' alt='Figure 9. Confusion matrix of the secondary Random Forest analytics bundle.'><div class='caption'>Figure 9. Confusion matrix of the secondary Random Forest analytics bundle.</div></div>
+    <div class='figure'><img src='report_assets/feature_importance.png' alt='Figure 10. Feature importance scores of the secondary Random Forest analytics bundle.'><div class='caption'>Figure 10. Feature importance scores of the secondary Random Forest analytics bundle.</div></div>
+
+    <h2 class="section-title page-break">Chapter 8: Complete Program Code</h2>
+    <p>
+      The code is organized below in two separate parts so the implementation is easier to review in the final
+      submission: the Python application code used for detection and analytics, and the separate web interface code
+      used for the lightweight browser demo.
+    </p>
+    <h3>8.1 Python Implementation Code</h3>
+<h4>app.py</h4><pre class='code-block'>&quot;&quot;&quot;Streamlit UI for pretrained weed detection plus analytics.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import pandas as pd
+import streamlit as st
+from PIL import Image
+
+from image_model import (
+    analyze_image,
+    create_mask_preview,
+    create_overlay_image,
+    extract_image_features,
+    load_or_train_classifier,
+)
+from yolo_weed_detector import detect_weeds_with_pretrained_model, get_pretrained_model_status
+
+
+st.set_page_config(page_title=&quot;Crop Field Weed Detector&quot;, layout=&quot;wide&quot;)
+
+
+ARTICLE_LINKS = [
+    (&quot;DeepWeeds dataset and field-image baseline&quot;, &quot;https://www.nature.com/articles/s41598-018-38343-3&quot;),
+    (&quot;CropAndWeed dataset (WACV 2023)&quot;, &quot;https://github.com/cropandweed/cropandweed-dataset&quot;),
+    (&quot;CWFID crop/weed field image dataset&quot;, &quot;https://github.com/cwfid/dataset&quot;),
+    (&quot;Systematic review of weed detection with deep learning&quot;, &quot;https://www.mdpi.com/1424-8220/23/7/3670&quot;),
+]
+
+
+def apply_theme() -&gt; None:
+    st.markdown(
+        &quot;&quot;&quot;
+        &lt;style&gt;
+          .stApp {
+            background:
+              radial-gradient(circle at top left, rgba(204, 236, 219, 0.55), transparent 28%),
+              radial-gradient(circle at bottom right, rgba(244, 227, 199, 0.45), transparent 32%),
+              #f7f5ef;
+          }
+          .hero {
+            background: linear-gradient(135deg, #153d2f, #2f6b53 62%, #d8b26a 140%);
+            color: #f9fbfa;
+            border-radius: 24px;
+            padding: 30px 34px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 60px rgba(21, 61, 47, 0.18);
+          }
+          .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.35rem;
+          }
+          .hero p {
+            font-size: 1.02rem;
+            max-width: 940px;
+            margin: 0;
+            line-height: 1.65;
+          }
+          .status-card {
+            border-radius: 18px;
+            padding: 20px 22px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 10px 30px rgba(31, 41, 51, 0.08);
+          }
+          .status-positive {
+            background: linear-gradient(135deg, rgba(255, 244, 229, 0.96), rgba(255, 232, 205, 0.96));
+          }
+          .status-negative {
+            background: linear-gradient(135deg, rgba(234, 246, 239, 0.96), rgba(220, 241, 229, 0.96));
+          }
+          .status-warning {
+            background: linear-gradient(135deg, rgba(255, 248, 229, 0.96), rgba(255, 239, 204, 0.96));
+          }
+          .status-error {
+            background: linear-gradient(135deg, rgba(254, 226, 226, 0.96), rgba(254, 242, 242, 0.96));
+          }
+          .status-card h2 {
+            margin: 0 0 6px;
+            font-size: 1.55rem;
+          }
+          .status-card p {
+            margin: 0.25rem 0;
+            color: #364152;
+          }
+          .source-list a {
+            color: #1b6b49;
+            text-decoration: none;
+          }
+          .source-list a:hover {
+            text-decoration: underline;
+          }
+        &lt;/style&gt;
+        &quot;&quot;&quot;,
+        unsafe_allow_html=True,
+    )
+
+
+def render_sidebar() -&gt; None:
+    status = get_pretrained_model_status()
+
+    st.sidebar.header(&quot;Detection Setup&quot;)
+    st.sidebar.write(
+        &quot;This app uses a pretrained YOLO weed detector first and then shows vegetation-pattern analytics for explanation.&quot;
+    )
+
+    with st.sidebar.expander(&quot;Pretrained model&quot;, expanded=True):
+        st.write(f&quot;Local weights available: `{&#x27;Yes&#x27; if status[&#x27;local_exists&#x27;] else &#x27;No - first run downloads them&#x27;}`&quot;)
+        st.caption(f&quot;Model path: `{Path(status[&#x27;model_path&#x27;]).name}`&quot;)
+        st.markdown(f&quot;[Model source]({status[&#x27;model_source&#x27;]})&quot;)
+
+    with st.sidebar.expander(&quot;Accepted image restrictions&quot;, expanded=True):
+        st.write(&quot;- Clear crop-field images only&quot;)
+        st.write(&quot;- PNG, JPG, JPEG, or WEBP&quot;)
+        st.write(&quot;- Daylight images work best&quot;)
+        st.write(
+            f&quot;- Shorter side must be at least {status[&#x27;absolute_min_dimension&#x27;]} px&quot;
+        )
+        st.write(
+            f&quot;- Images between {status[&#x27;absolute_min_dimension&#x27;]} px and &quot;
+            f&quot;{status[&#x27;preferred_min_dimension&#x27;] - 1} px are auto-upscaled before inference&quot;
+        )
+        st.write(&quot;- Avoid extreme close-ups, dark images, screenshots, and heavy blur&quot;)
+
+    with st.sidebar.expander(&quot;Research links&quot;, expanded=False):
+        st.markdown(&#x27;&lt;div class=&quot;source-list&quot;&gt;&#x27;, unsafe_allow_html=True)
+        for label, url in ARTICLE_LINKS:
+            st.markdown(f&quot;- [{label}]({url})&quot;)
+        st.markdown(&quot;&lt;/div&gt;&quot;, unsafe_allow_html=True)
+
+
+def render_status_card(title: str, confidence: float, description: str, card_class: str) -&gt; None:
+    st.markdown(
+        f&quot;&quot;&quot;
+        &lt;div class=&quot;status-card {card_class}&quot;&gt;
+          &lt;h2&gt;{title}&lt;/h2&gt;
+          &lt;p&gt;&lt;strong&gt;Confidence:&lt;/strong&gt; {confidence * 100:.1f}%&lt;/p&gt;
+          &lt;p&gt;{description}&lt;/p&gt;
+        &lt;/div&gt;
+        &quot;&quot;&quot;,
+        unsafe_allow_html=True,
+    )
+
+
+def render_detection_notes(notes: list[str]) -&gt; None:
+    if not notes:
+        return
+    st.subheader(&quot;Detection notes&quot;)
+    for note in notes:
+        st.write(f&quot;- {note}&quot;)
+
+
+def render_analytics_panel(feature_values: dict[str, float], feature_table: pd.DataFrame) -&gt; None:
+    st.subheader(&quot;Vegetation analytics&quot;)
+    metric_col_1, metric_col_2, metric_col_3 = st.columns(3)
+    with metric_col_1:
+        st.metric(&quot;Vegetation coverage&quot;, f&quot;{feature_values[&#x27;vegetation_coverage&#x27;]:.3f}&quot;)
+        st.metric(&quot;Excess green mean&quot;, f&quot;{feature_values[&#x27;excess_green_mean&#x27;]:.3f}&quot;)
+    with metric_col_2:
+        st.metric(&quot;Texture variation&quot;, f&quot;{feature_values[&#x27;texture_variation&#x27;]:.3f}&quot;)
+        st.metric(&quot;Component density&quot;, f&quot;{feature_values[&#x27;component_density&#x27;]:.3f}&quot;)
+    with metric_col_3:
+        st.metric(&quot;Row alignment&quot;, f&quot;{feature_values[&#x27;row_alignment&#x27;]:.3f}&quot;)
+        st.metric(&quot;Excess green std&quot;, f&quot;{feature_values[&#x27;excess_green_std&#x27;]:.3f}&quot;)
+
+    st.dataframe(feature_table, use_container_width=True, hide_index=True)
+
+
+def main() -&gt; None:
+    apply_theme()
+    render_sidebar()
+
+    st.markdown(
+        &quot;&quot;&quot;
+        &lt;div class=&quot;hero&quot;&gt;
+          &lt;h1&gt;Crop Field Weed Detector&lt;/h1&gt;
+          &lt;p&gt;
+            Upload a clear crop-field image and the app will run a pretrained weed detector with bounding boxes.
+            Alongside the final weed / no-weed result, the interface also shows vegetation-mask analytics so you can
+            explain the decision in your project demo and report.
+          &lt;/p&gt;
+        &lt;/div&gt;
+        &quot;&quot;&quot;,
+        unsafe_allow_html=True,
+    )
+
+    uploaded_file = st.file_uploader(
+        &quot;Upload a crop-field image&quot;,
+        type=[&quot;png&quot;, &quot;jpg&quot;, &quot;jpeg&quot;, &quot;webp&quot;],
+        help=&quot;Use a daylight field image with visible crop rows or plantation structure. Smaller usable images are auto-upscaled.&quot;,
+    )
+
+    if not uploaded_file:
+        st.info(
+            &quot;No image uploaded yet. The first real run will download the pretrained detector weights and then analyze the image.&quot;
+        )
+        st.markdown(
+            &quot;&quot;&quot;
+            **What this app shows**
+            - Original image
+            - YOLO detection view with bounding boxes
+            - Vegetation mask
+            - Overlay analytics view
+            - Weed / no-weed decision
+            - Detection table and image-feature summary
+            - Auto-upscale note for smaller accepted images
+            &quot;&quot;&quot;
+        )
+        return
+
+    image = Image.open(uploaded_file).convert(&quot;RGB&quot;)
+    feature_values, vegetation_mask, resized_image = extract_image_features(image)
+    vegetation_mask_image = create_mask_preview(vegetation_mask)
+    overlay_image = create_overlay_image(resized_image, vegetation_mask)
+    feature_table = pd.DataFrame(
+        {
+            &quot;Feature&quot;: [name.replace(&quot;_&quot;, &quot; &quot;).title() for name in feature_values.keys()],
+            &quot;Value&quot;: list(feature_values.values()),
+        }
+    )
+
+    with st.spinner(&quot;Running pretrained weed detector...&quot;):
+        detection_result = detect_weeds_with_pretrained_model(image)
+
+    fallback_result = None
+    if detection_result.status == &quot;error&quot;:
+        fallback_bundle = load_or_train_classifier()
+        fallback_result = analyze_image(image, model_bundle=fallback_bundle)
+
+    if detection_result.status == &quot;invalid&quot;:
+        render_status_card(
+            detection_result.headline,
+            0.0,
+            &quot;The uploaded file does not meet the current crop-field image acceptance rules.&quot;,
+            &quot;status-error&quot;,
+        )
+        render_detection_notes(detection_result.notes)
+    elif detection_result.status == &quot;error&quot;:
+        render_status_card(
+            &quot;Pretrained detector not available&quot;,
+            fallback_result.confidence if fallback_result else 0.0,
+            &quot;The app switched to the older vegetation-pattern fallback so you can still continue the demo.&quot;,
+            &quot;status-warning&quot;,
+        )
+        render_detection_notes(detection_result.notes)
+        if fallback_result is not None:
+            st.subheader(&quot;Fallback result&quot;)
+            st.write(f&quot;- {fallback_result.label_text}&quot;)
+            for reason in fallback_result.reasoning:
+                st.write(f&quot;- {reason}&quot;)
+    else:
+        if detection_result.weed_present is True:
+            render_status_card(
+                detection_result.headline,
+                detection_result.confidence,
+                &quot;At least one weed-class bounding box was found by the pretrained detector.&quot;,
+                &quot;status-positive&quot;,
+            )
+        elif detection_result.weed_present is False:
+            render_status_card(
+                detection_result.headline,
+                detection_result.confidence,
+                &quot;Crop detections were found and no weed boxes crossed the confidence threshold.&quot;,
+                &quot;status-negative&quot;,
+            )
+        else:
+            render_status_card(
+                detection_result.headline,
+                detection_result.confidence,
+                &quot;No reliable crop or weed boxes were found, so the image should be retaken for a stronger result.&quot;,
+                &quot;status-warning&quot;,
+            )
+        render_detection_notes(detection_result.notes)
+
+    if detection_result.auto_upscaled:
+        st.info(
+            &quot;This image was auto-upscaled before inference so the shorter side met the model&#x27;s preferred minimum size. &quot;
+            f&quot;Original size: {detection_result.original_size[0]} x {detection_result.original_size[1]} px. &quot;
+            f&quot;Processed size: {detection_result.processed_size[0]} x {detection_result.processed_size[1]} px.&quot;
+        )
+
+    image_col_1, image_col_2 = st.columns(2)
+    with image_col_1:
+        st.subheader(&quot;Original image&quot;)
+        st.image(resized_image, use_container_width=True)
+    with image_col_2:
+        st.subheader(&quot;YOLO detection view&quot;)
+        if detection_result.annotated_image is not None:
+            st.image(detection_result.annotated_image, use_container_width=True)
+        elif fallback_result is not None:
+            st.image(fallback_result.resized_image, use_container_width=True)
+        else:
+            st.info(&quot;No detection overlay available for this image.&quot;)
+
+    image_col_3, image_col_4 = st.columns(2)
+    with image_col_3:
+        st.subheader(&quot;Vegetation mask&quot;)
+        st.image(vegetation_mask_image, use_container_width=True)
+    with image_col_4:
+        st.subheader(&quot;Analytics overlay&quot;)
+        st.image(overlay_image, use_container_width=True)
+
+    st.subheader(&quot;Detection summary&quot;)
+    summary_col_1, summary_col_2, summary_col_3, summary_col_4 = st.columns(4)
+    with summary_col_1:
+        st.metric(&quot;Weed detections&quot;, detection_result.weed_count)
+    with summary_col_2:
+        st.metric(&quot;Crop detections&quot;, detection_result.crop_count)
+    with summary_col_3:
+        st.metric(
+            &quot;Processed size&quot;,
+            f&quot;{detection_result.processed_size[0]} x {detection_result.processed_size[1]}&quot;,
+        )
+    with summary_col_4:
+        st.metric(&quot;Top confidence&quot;, f&quot;{detection_result.confidence * 100:.1f}%&quot;)
+
+    info_col_1, info_col_2 = st.columns(2)
+    with info_col_1:
+        st.caption(
+            f&quot;Original upload size: {detection_result.original_size[0]} x {detection_result.original_size[1]} px&quot;
+        )
+    with info_col_2:
+        st.caption(
+            &quot;Auto-upscaled before inference&quot; if detection_result.auto_upscaled else &quot;Original size was already acceptable&quot;
+        )
+
+    st.subheader(&quot;Detection table&quot;)
+    if detection_result.detections_table.empty:
+        st.info(&quot;No confident bounding boxes were produced for this image.&quot;)
+    else:
+        st.dataframe(detection_result.detections_table, use_container_width=True, hide_index=True)
+
+    render_analytics_panel(feature_values, feature_table)
+
+    with st.expander(&quot;How to run the project&quot;, expanded=False):
+        st.write(&quot;1. Install dependencies with `pip install -r requirements.txt`.&quot;)
+        st.write(&quot;2. Launch the interface with `streamlit run app.py`.&quot;)
+        st.write(&quot;3. On the first detection run, the app downloads the pretrained model weights automatically.&quot;)
+        st.write(&quot;4. Upload a crop-field image and review the detections plus analytics.&quot;)
+
+    with st.expander(&quot;Open the detailed literature notes&quot;, expanded=False):
+        literature_path = Path(&quot;LITERATURE_REVIEW.md&quot;)
+        if literature_path.exists():
+            st.markdown(literature_path.read_text(encoding=&quot;utf-8&quot;))
+        else:
+            st.write(&quot;Literature notes file not found.&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</pre>
+<h4>yolo_weed_detector.py</h4><pre class='code-block'>&quot;&quot;&quot;Pretrained weed detection using a remote YOLO model.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from functools import lru_cache
+from pathlib import Path
+from typing import Any
+import os
+
+import numpy as np
+import pandas as pd
+import requests
+from PIL import Image
+
+from image_model import compute_excess_green
+
+
+MODELS_DIR = Path(&quot;models&quot;)
+DEFAULT_MODEL_URL = os.getenv(
+    &quot;WEED_MODEL_URL&quot;,
+    &quot;https://huggingface.co/NvMayMay/weedblaster-vision-yolov8s/resolve/main/best.pt&quot;,
+)
+DEFAULT_MODEL_PATH = Path(os.getenv(&quot;WEED_MODEL_PATH&quot;, MODELS_DIR / &quot;weedblaster-vision-yolov8s.pt&quot;))
+DEFAULT_CONFIDENCE = float(os.getenv(&quot;WEED_MODEL_CONFIDENCE&quot;, &quot;0.25&quot;))
+DEFAULT_IMAGE_SIZE = int(os.getenv(&quot;WEED_MODEL_IMAGE_SIZE&quot;, &quot;960&quot;))
+ABSOLUTE_MIN_DIMENSION = int(os.getenv(&quot;WEED_MODEL_ABSOLUTE_MIN_DIMENSION&quot;, &quot;128&quot;))
+PREFERRED_MIN_DIMENSION = int(os.getenv(&quot;WEED_MODEL_PREFERRED_MIN_DIMENSION&quot;, &quot;224&quot;))
+
+
+@dataclass
+class FieldImageValidation:
+    is_valid: bool
+    issues: list[str]
+    notes: list[str]
+    prepared_image: Image.Image
+    original_size: tuple[int, int]
+    processed_size: tuple[int, int]
+    auto_upscaled: bool
+
+
+@dataclass
+class PretrainedDetectionResult:
+    status: str
+    weed_present: bool | None
+    headline: str
+    confidence: float
+    weed_count: int
+    crop_count: int
+    total_detections: int
+    annotated_image: Image.Image | None
+    detections_table: pd.DataFrame
+    notes: list[str]
+    model_path: str
+    model_source: str
+    original_size: tuple[int, int]
+    processed_size: tuple[int, int]
+    auto_upscaled: bool
+
+
+def get_pretrained_model_status() -&gt; dict[str, Any]:
+    model_path = DEFAULT_MODEL_PATH
+    return {
+        &quot;model_path&quot;: str(model_path.resolve()),
+        &quot;local_exists&quot;: model_path.exists(),
+        &quot;model_source&quot;: DEFAULT_MODEL_URL,
+        &quot;absolute_min_dimension&quot;: ABSOLUTE_MIN_DIMENSION,
+        &quot;preferred_min_dimension&quot;: PREFERRED_MIN_DIMENSION,
+    }
+
+
+def _configure_yolo_environment() -&gt; None:
+    os.environ.setdefault(&quot;YOLO_CONFIG_DIR&quot;, str(Path.cwd()))
+
+
+def _prepare_image_rgb(
+    image: Image.Image,
+    max_side: int = 1280,
+    min_side: int | None = None,
+) -&gt; Image.Image:
+    image = image.convert(&quot;RGB&quot;)
+    width, height = image.size
+    scale = 1.0
+    if min_side is not None and min(width, height) &lt; min_side:
+        scale = max(scale, min_side / min(width, height))
+    if max(width, height) * scale &gt; max_side:
+        scale = max_side / max(width, height)
+    if abs(scale - 1.0) &lt; 1e-6:
+        return image
+    return image.resize(
+        (max(1, round(width * scale)), max(1, round(height * scale))),
+        Image.Resampling.LANCZOS,
+    )
+
+
+def validate_field_image(image: Image.Image) -&gt; FieldImageValidation:
+    original = image.convert(&quot;RGB&quot;)
+    original_size = original.size
+    original_width, original_height = original_size
+    auto_upscaled = False
+    notes: list[str] = []
+    issues: list[str] = []
+
+    if min(original_width, original_height) &lt; ABSOLUTE_MIN_DIMENSION:
+        issues.append(
+            f&quot;Image resolution is too low. Use a field image whose shorter side is at least {ABSOLUTE_MIN_DIMENSION} pixels.&quot;
+        )
+        prepared = _prepare_image_rgb(original, max_side=640)
+        return FieldImageValidation(
+            is_valid=False,
+            issues=issues,
+            notes=notes,
+            prepared_image=prepared,
+            original_size=original_size,
+            processed_size=prepared.size,
+            auto_upscaled=False,
+        )
+
+    prepared = _prepare_image_rgb(original, max_side=640, min_side=PREFERRED_MIN_DIMENSION)
+    width, height = prepared.size
+    aspect_ratio = width / max(height, 1)
+
+    auto_upscaled = prepared.size != original_size and min(original_width, original_height) &lt; PREFERRED_MIN_DIMENSION
+    if auto_upscaled:
+        notes.append(
+            &quot;Image was auto-upscaled from &quot;
+            f&quot;{original_width} x {original_height} to {prepared.size[0]} x {prepared.size[1]} before analysis.&quot;
+        )
+
+    if aspect_ratio &lt; 0.45 or aspect_ratio &gt; 2.8:
+        issues.append(&quot;Image shape is unusual. Use a standard portrait or landscape crop-field image.&quot;)
+
+    rgb = np.asarray(prepared).astype(np.float32) / 255.0
+    brightness = float(rgb.mean())
+    if brightness &lt; 0.16:
+        issues.append(&quot;The image is too dark. Use a brighter daylight field image.&quot;)
+    if brightness &gt; 0.94:
+        issues.append(&quot;The image is overexposed. Use a photo with more balanced lighting.&quot;)
+
+    exg = compute_excess_green(rgb)
+    vegetation_ratio = float((exg &gt; 0.08).mean())
+    if vegetation_ratio &lt; 0.03:
+        issues.append(&quot;Very little vegetation is visible. Upload a crop-field image that clearly shows plants.&quot;)
+    if vegetation_ratio &gt; 0.97:
+        issues.append(&quot;The image is too close to the leaves. Upload a wider field view that shows crop rows.&quot;)
+
+    grayscale = (0.299 * rgb[:, :, 0]) + (0.587 * rgb[:, :, 1]) + (0.114 * rgb[:, :, 2])
+    if grayscale.shape[0] &gt; 1 and grayscale.shape[1] &gt; 1:
+        texture = float(
+            (
+                np.abs(np.diff(grayscale, axis=0)).mean()
+                + np.abs(np.diff(grayscale, axis=1)).mean()
+            )
+            / 2.0
+        )
+        if texture &lt; 0.02:
+            issues.append(&quot;The image appears too blurred or flat. Use a clearer field photo.&quot;)
+
+    return FieldImageValidation(
+        is_valid=not issues,
+        issues=issues,
+        notes=notes,
+        prepared_image=prepared,
+        original_size=original_size,
+        processed_size=prepared.size,
+        auto_upscaled=auto_upscaled,
+    )
+
+
+def ensure_pretrained_model() -&gt; Path:
+    model_path = DEFAULT_MODEL_PATH
+    if model_path.exists():
+        return model_path
+
+    MODELS_DIR.mkdir(parents=True, exist_ok=True)
+    temp_path = model_path.with_suffix(model_path.suffix + &quot;.part&quot;)
+
+    with requests.get(DEFAULT_MODEL_URL, stream=True, timeout=(30, 600)) as response:
+        response.raise_for_status()
+        with temp_path.open(&quot;wb&quot;) as file_handle:
+            for chunk in response.iter_content(chunk_size=1024 * 1024):
+                if chunk:
+                    file_handle.write(chunk)
+
+    temp_path.replace(model_path)
+    return model_path
+
+
+@lru_cache(maxsize=1)
+def load_pretrained_model():
+    _configure_yolo_environment()
+    from ultralytics import YOLO
+
+    model_path = ensure_pretrained_model()
+    return YOLO(str(model_path))
+
+
+def _boxes_to_table(result) -&gt; pd.DataFrame:
+    records: list[dict[str, Any]] = []
+    boxes = result.boxes
+    names = result.names
+
+    if boxes is None:
+        return pd.DataFrame(columns=[&quot;Class&quot;, &quot;Confidence&quot;, &quot;x1&quot;, &quot;y1&quot;, &quot;x2&quot;, &quot;y2&quot;])
+
+    xyxy_values = boxes.xyxy.cpu().numpy() if hasattr(boxes, &quot;xyxy&quot;) else []
+    confidence_values = boxes.conf.cpu().numpy() if hasattr(boxes, &quot;conf&quot;) else []
+    class_values = boxes.cls.cpu().numpy().astype(int) if hasattr(boxes, &quot;cls&quot;) else []
+
+    for box, confidence, class_id in zip(xyxy_values, confidence_values, class_values):
+        label = str(names.get(int(class_id), class_id))
+        records.append(
+            {
+                &quot;Class&quot;: label,
+                &quot;Confidence&quot;: round(float(confidence), 3),
+                &quot;x1&quot;: int(box[0]),
+                &quot;y1&quot;: int(box[1]),
+                &quot;x2&quot;: int(box[2]),
+                &quot;y2&quot;: int(box[3]),
+            }
+        )
+
+    return pd.DataFrame(records)
+
+
+def _summarize_detections(detections_table: pd.DataFrame) -&gt; tuple[int, int]:
+    if detections_table.empty:
+        return 0, 0
+
+    weed_mask = detections_table[&quot;Class&quot;].str.lower().str.contains(&quot;weed&quot;, na=False)
+    weed_count = int(weed_mask.sum())
+    crop_count = int((~weed_mask).sum())
+    return weed_count, crop_count
+
+
+def detect_weeds_with_pretrained_model(
+    image: Image.Image,
+    confidence_threshold: float = DEFAULT_CONFIDENCE,
+    image_size: int = DEFAULT_IMAGE_SIZE,
+) -&gt; PretrainedDetectionResult:
+    validation = validate_field_image(image)
+    if not validation.is_valid:
+        return PretrainedDetectionResult(
+            status=&quot;invalid&quot;,
+            weed_present=None,
+            headline=&quot;Image not accepted for reliable analysis&quot;,
+            confidence=0.0,
+            weed_count=0,
+            crop_count=0,
+            total_detections=0,
+            annotated_image=None,
+            detections_table=pd.DataFrame(columns=[&quot;Class&quot;, &quot;Confidence&quot;, &quot;x1&quot;, &quot;y1&quot;, &quot;x2&quot;, &quot;y2&quot;]),
+            notes=[*validation.notes, *validation.issues],
+            model_path=str(DEFAULT_MODEL_PATH.resolve()),
+            model_source=DEFAULT_MODEL_URL,
+            original_size=validation.original_size,
+            processed_size=validation.processed_size,
+            auto_upscaled=validation.auto_upscaled,
+        )
+
+    try:
+        model = load_pretrained_model()
+        prepared_image = _prepare_image_rgb(image, max_side=max(image_size, 640), min_side=PREFERRED_MIN_DIMENSION)
+        result = model.predict(
+            source=np.asarray(prepared_image),
+            conf=confidence_threshold,
+            imgsz=image_size,
+            device=&quot;cpu&quot;,
+            verbose=False,
+        )[0]
+    except Exception as exc:
+        return PretrainedDetectionResult(
+            status=&quot;error&quot;,
+            weed_present=None,
+            headline=&quot;Pretrained detector unavailable&quot;,
+            confidence=0.0,
+            weed_count=0,
+            crop_count=0,
+            total_detections=0,
+            annotated_image=None,
+            detections_table=pd.DataFrame(columns=[&quot;Class&quot;, &quot;Confidence&quot;, &quot;x1&quot;, &quot;y1&quot;, &quot;x2&quot;, &quot;y2&quot;]),
+            notes=[f&quot;YOLO model could not run: {exc}&quot;],
+            model_path=str(DEFAULT_MODEL_PATH.resolve()),
+            model_source=DEFAULT_MODEL_URL,
+            original_size=validation.original_size,
+            processed_size=prepared_image.size,
+            auto_upscaled=validation.auto_upscaled,
+        )
+
+    detections_table = _boxes_to_table(result)
+    weed_count, crop_count = _summarize_detections(detections_table)
+    total_detections = len(detections_table)
+
+    plotted = result.plot()
+    annotated_image = Image.fromarray(plotted[:, :, ::-1]) if plotted is not None else None
+
+    if weed_count &gt; 0:
+        headline = &quot;Weeds detected in the uploaded field image&quot;
+        top_confidence = float(
+            detections_table[detections_table[&quot;Class&quot;].str.lower().str.contains(&quot;weed&quot;, na=False)][&quot;Confidence&quot;].max()
+        )
+        notes = [
+            *validation.notes,
+            f&quot;{weed_count} weed detection(s) were found by the pretrained model.&quot;,
+            &quot;Bounding boxes highlight the plant regions predicted as weeds.&quot;,
+        ]
+        return PretrainedDetectionResult(
+            status=&quot;ok&quot;,
+            weed_present=True,
+            headline=headline,
+            confidence=top_confidence,
+            weed_count=weed_count,
+            crop_count=crop_count,
+            total_detections=total_detections,
+            annotated_image=annotated_image,
+            detections_table=detections_table,
+            notes=notes,
+            model_path=str(DEFAULT_MODEL_PATH.resolve()),
+            model_source=DEFAULT_MODEL_URL,
+            original_size=validation.original_size,
+            processed_size=prepared_image.size,
+            auto_upscaled=validation.auto_upscaled,
+        )
+
+    if crop_count &gt; 0:
+        top_confidence = float(detections_table[&quot;Confidence&quot;].max())
+        return PretrainedDetectionResult(
+            status=&quot;ok&quot;,
+            weed_present=False,
+            headline=&quot;No weed boxes were detected in this field image&quot;,
+            confidence=top_confidence,
+            weed_count=0,
+            crop_count=crop_count,
+            total_detections=total_detections,
+            annotated_image=annotated_image,
+            detections_table=detections_table,
+            notes=[
+                *validation.notes,
+                f&quot;{crop_count} crop detection(s) were found and no weeds crossed the confidence threshold.&quot;,
+                &quot;If this result seems wrong, retake the photo with a wider top-down field view.&quot;,
+            ],
+            model_path=str(DEFAULT_MODEL_PATH.resolve()),
+            model_source=DEFAULT_MODEL_URL,
+            original_size=validation.original_size,
+            processed_size=prepared_image.size,
+            auto_upscaled=validation.auto_upscaled,
+        )
+
+    return PretrainedDetectionResult(
+        status=&quot;ok&quot;,
+        weed_present=None,
+        headline=&quot;No confident plant detections were found&quot;,
+        confidence=0.0,
+        weed_count=0,
+        crop_count=0,
+        total_detections=0,
+        annotated_image=annotated_image,
+        detections_table=detections_table,
+        notes=[
+            *validation.notes,
+            &quot;The model did not find confident crop or weed boxes in this image.&quot;,
+            &quot;Use a clearer, wider field image that shows visible plants and row structure.&quot;,
+        ],
+        model_path=str(DEFAULT_MODEL_PATH.resolve()),
+        model_source=DEFAULT_MODEL_URL,
+        original_size=validation.original_size,
+        processed_size=prepared_image.size,
+        auto_upscaled=validation.auto_upscaled,
+    )
+</pre>
+<h4>image_model.py</h4><pre class='code-block'>&quot;&quot;&quot;Image-based weed detection prototype built around Random Forest.
+
+This module upgrades the earlier tabular demo into an RGB image workflow:
+1. Accept a crop-field image.
+2. Extract vegetation and texture cues from the image.
+3. Feed the image-derived features into a Random Forest classifier.
+4. Return a weed/no-weed decision, confidence score, and visual overlays.
+
+Important:
+- This is a prototype for project/demo use.
+- The uploaded image is standard RGB, so true NDVI is not available.
+- The classifier is trained on synthetic image-inspired features unless the
+  user later replaces it with a real labeled dataset.
+&quot;&quot;&quot;
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+import joblib
+import numpy as np
+import pandas as pd
+from PIL import Image, ImageFilter
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score, precision_score, recall_score
+from sklearn.model_selection import GridSearchCV, StratifiedKFold, train_test_split
+
+
+RANDOM_STATE = 42
+FEATURE_COLUMNS = [
+    &quot;vegetation_coverage&quot;,
+    &quot;excess_green_mean&quot;,
+    &quot;excess_green_std&quot;,
+    &quot;texture_variation&quot;,
+    &quot;component_density&quot;,
+    &quot;row_alignment&quot;,
+]
+TARGET_COLUMN = &quot;weed_present&quot;
+
+MODEL_BUNDLE_PATH = Path(&quot;weed_image_rf_model.joblib&quot;)
+TRAINING_DATA_PATH = Path(&quot;synthetic_image_feature_data.csv&quot;)
+
+
+@dataclass
+class AnalysisResult:
+    label: int
+    label_text: str
+    confidence: float
+    feature_values: dict[str, float]
+    feature_table: pd.DataFrame
+    reasoning: list[str]
+    resized_image: Image.Image
+    vegetation_mask_image: Image.Image
+    overlay_image: Image.Image
+
+
+def _ensure_rgb(image: Image.Image) -&gt; Image.Image:
+    return image.convert(&quot;RGB&quot;)
+
+
+def resize_for_analysis(image: Image.Image, max_side: int = 640) -&gt; Image.Image:
+    image = _ensure_rgb(image)
+    width, height = image.size
+    scale = min(max_side / max(width, height), 1.0)
+    new_size = (max(1, int(width * scale)), max(1, int(height * scale)))
+    return image.resize(new_size, Image.Resampling.LANCZOS)
+
+
+def compute_excess_green(rgb: np.ndarray) -&gt; np.ndarray:
+    &quot;&quot;&quot;Compute ExG from normalized RGB values.&quot;&quot;&quot;
+
+    channel_sum = rgb.sum(axis=2, keepdims=True)
+    channel_sum = np.where(channel_sum == 0, 1e-6, channel_sum)
+    normalized = rgb / channel_sum
+
+    red = normalized[:, :, 0]
+    green = normalized[:, :, 1]
+    blue = normalized[:, :, 2]
+    return (2.0 * green) - red - blue
+
+
+def build_vegetation_mask(rgb: np.ndarray, exg_threshold: float = 0.08) -&gt; np.ndarray:
+    &quot;&quot;&quot;Segment vegetation using Excess Green and green dominance.&quot;&quot;&quot;
+
+    exg = compute_excess_green(rgb)
+    green_dominance = (rgb[:, :, 1] &gt; rgb[:, :, 0] * 0.95) &amp; (rgb[:, :, 1] &gt; rgb[:, :, 2] * 1.05)
+    mask = (exg &gt; exg_threshold) &amp; green_dominance
+
+    mask_image = Image.fromarray((mask.astype(np.uint8) * 255), mode=&quot;L&quot;)
+    mask_image = mask_image.filter(ImageFilter.MedianFilter(size=3))
+    return np.asarray(mask_image) &gt; 0
+
+
+def _downsample_mask(mask: np.ndarray, max_side: int = 128) -&gt; np.ndarray:
+    mask_image = Image.fromarray((mask.astype(np.uint8) * 255), mode=&quot;L&quot;)
+    width, height = mask_image.size
+    scale = min(max_side / max(width, height), 1.0)
+    resized = mask_image.resize(
+        (max(1, int(width * scale)), max(1, int(height * scale))),
+        Image.Resampling.NEAREST,
+    )
+    return np.asarray(resized) &gt; 0
+
+
+def count_connected_components(mask: np.ndarray) -&gt; int:
+    &quot;&quot;&quot;Count connected vegetation clusters on a small binary mask.&quot;&quot;&quot;
+
+    height, width = mask.shape
+    visited = np.zeros_like(mask, dtype=bool)
+    component_count = 0
+
+    for row in range(height):
+        for col in range(width):
+            if not mask[row, col] or visited[row, col]:
+                continue
+
+            component_count += 1
+            stack = [(row, col)]
+            visited[row, col] = True
+
+            while stack:
+                current_row, current_col = stack.pop()
+                for delta_row in (-1, 0, 1):
+                    for delta_col in (-1, 0, 1):
+                        if delta_row == 0 and delta_col == 0:
+                            continue
+
+                        next_row = current_row + delta_row
+                        next_col = current_col + delta_col
+                        if next_row &lt; 0 or next_row &gt;= height or next_col &lt; 0 or next_col &gt;= width:
+                            continue
+                        if visited[next_row, next_col] or not mask[next_row, next_col]:
+                            continue
+
+                        visited[next_row, next_col] = True
+                        stack.append((next_row, next_col))
+
+    return component_count
+
+
+def compute_row_alignment(mask: np.ndarray) -&gt; float:
+    &quot;&quot;&quot;Estimate how strongly vegetation aligns along crop rows.&quot;&quot;&quot;
+
+    row_profile = mask.mean(axis=1)
+    col_profile = mask.mean(axis=0)
+    smoothing_window = np.ones(15, dtype=np.float32) / 15.0
+
+    smoothed_rows = np.convolve(row_profile, smoothing_window, mode=&quot;same&quot;)
+    smoothed_cols = np.convolve(col_profile, smoothing_window, mode=&quot;same&quot;)
+
+    alignment = max(smoothed_rows.std(), smoothed_cols.std())
+    return float(np.clip(alignment / 0.22, 0.0, 1.0))
+
+
+def create_mask_preview(mask: np.ndarray) -&gt; Image.Image:
+    preview = np.zeros((mask.shape[0], mask.shape[1], 3), dtype=np.uint8)
+    preview[:, :, :] = np.array([238, 245, 240], dtype=np.uint8)
+    preview[mask] = np.array([35, 132, 82], dtype=np.uint8)
+    return Image.fromarray(preview, mode=&quot;RGB&quot;)
+
+
+def create_overlay_image(image: Image.Image, mask: np.ndarray) -&gt; Image.Image:
+    base = np.asarray(image).astype(np.float32)
+    highlight = np.array([255.0, 166.0, 77.0], dtype=np.float32)
+    alpha = np.zeros_like(base, dtype=np.float32)
+    alpha[mask] = 0.42
+    blended = (base * (1.0 - alpha)) + (highlight * alpha)
+    return Image.fromarray(np.clip(blended, 0, 255).astype(np.uint8), mode=&quot;RGB&quot;)
+
+
+def extract_image_features(image: Image.Image) -&gt; tuple[dict[str, float], np.ndarray, Image.Image]:
+    &quot;&quot;&quot;Extract engineered features from an RGB crop-field image.&quot;&quot;&quot;
+
+    resized = resize_for_analysis(image)
+    rgb = np.asarray(resized).astype(np.float32) / 255.0
+    mask = build_vegetation_mask(rgb)
+    exg = compute_excess_green(rgb)
+
+    grayscale = (0.299 * rgb[:, :, 0]) + (0.587 * rgb[:, :, 1]) + (0.114 * rgb[:, :, 2])
+    vertical_diff = np.abs(np.diff(grayscale, axis=0))
+    horizontal_diff = np.abs(np.diff(grayscale, axis=1))
+    texture_variation = float((vertical_diff.mean() + horizontal_diff.mean()) / 2.0)
+
+    vegetation_coverage = float(mask.mean())
+    if mask.any():
+        excess_green_mean = float(exg[mask].mean())
+        excess_green_std = float(exg[mask].std())
+    else:
+        excess_green_mean = float(exg.mean())
+        excess_green_std = float(exg.std())
+
+    small_mask = _downsample_mask(mask)
+    area_scale = max(1.0, small_mask.size / 10_000.0)
+    component_density = float(count_connected_components(small_mask) / area_scale)
+    row_alignment = compute_row_alignment(mask)
+
+    features = {
+        &quot;vegetation_coverage&quot;: round(vegetation_coverage, 4),
+        &quot;excess_green_mean&quot;: round(excess_green_mean, 4),
+        &quot;excess_green_std&quot;: round(excess_green_std, 4),
+        &quot;texture_variation&quot;: round(texture_variation, 4),
+        &quot;component_density&quot;: round(component_density, 4),
+        &quot;row_alignment&quot;: round(row_alignment, 4),
+    }
+    return features, mask, resized
+
+
+def generate_synthetic_image_feature_data(
+    n_samples: int = 1800,
+    random_state: int = RANDOM_STATE,
+) -&gt; pd.DataFrame:
+    &quot;&quot;&quot;Generate synthetic image-feature training data for the Random Forest.&quot;&quot;&quot;
+
+    rng = np.random.default_rng(random_state)
+
+    weed_pressure = rng.beta(2.2, 1.8, n_samples)
+    vegetation_coverage = np.clip(rng.normal(0.12 + (0.42 * weed_pressure), 0.06, n_samples), 0.01, 0.95)
+    excess_green_mean = np.clip(rng.normal(0.28 - (0.16 * weed_pressure), 0.04, n_samples), 0.01, 0.60)
+    excess_green_std = np.clip(rng.normal(0.06 + (0.10 * weed_pressure), 0.02, n_samples), 0.01, 0.40)
+    texture_variation = np.clip(rng.normal(0.04 + (0.18 * weed_pressure), 0.03, n_samples), 0.01, 0.50)
+    component_density = np.clip(rng.normal(0.8 + (6.5 * weed_pressure), 1.0, n_samples), 0.0, 20.0)
+    row_alignment = np.clip(rng.normal(0.82 - (0.62 * weed_pressure), 0.08, n_samples), 0.0, 1.0)
+
+    noise = rng.normal(0.0, 0.09, n_samples)
+    labels = ((weed_pressure + noise) &gt; 0.52).astype(int)
+
+    # Flip a few labels to avoid an overly clean boundary.
+    flip_mask = rng.random(n_samples) &lt; 0.04
+    labels[flip_mask] = 1 - labels[flip_mask]
+
+    return pd.DataFrame(
+        {
+            &quot;vegetation_coverage&quot;: vegetation_coverage,
+            &quot;excess_green_mean&quot;: excess_green_mean,
+            &quot;excess_green_std&quot;: excess_green_std,
+            &quot;texture_variation&quot;: texture_variation,
+            &quot;component_density&quot;: component_density,
+            &quot;row_alignment&quot;: row_alignment,
+            TARGET_COLUMN: labels,
+        }
+    ).round(4)
+
+
+def train_image_classifier(
+    save_bundle: bool = True,
+    random_state: int = RANDOM_STATE,
+) -&gt; dict[str, Any]:
+    &quot;&quot;&quot;Train a Random Forest on synthetic image-derived features.&quot;&quot;&quot;
+
+    dataset = generate_synthetic_image_feature_data(random_state=random_state)
+    X = dataset[FEATURE_COLUMNS]
+    y = dataset[TARGET_COLUMN]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=0.20,
+        stratify=y,
+        random_state=random_state,
+    )
+
+    search = GridSearchCV(
+        estimator=RandomForestClassifier(
+            random_state=random_state,
+            n_jobs=1,
+            class_weight=&quot;balanced&quot;,
+        ),
+        param_grid={
+            &quot;n_estimators&quot;: [120, 180],
+            &quot;max_depth&quot;: [8, 10, None],
+            &quot;min_samples_split&quot;: [2, 4],
+            &quot;min_samples_leaf&quot;: [1, 2],
+            &quot;max_features&quot;: [&quot;sqrt&quot;, None],
+        },
+        scoring=&quot;f1&quot;,
+        cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=random_state),
+        n_jobs=1,
+        refit=True,
+        verbose=0,
+    )
+    search.fit(X_train, y_train)
+
+    best_model = search.best_estimator_
+    predictions = best_model.predict(X_test)
+    probabilities = best_model.predict_proba(X_test)[:, 1]
+
+    feature_importance = (
+        pd.DataFrame(
+            {
+                &quot;feature&quot;: FEATURE_COLUMNS,
+                &quot;importance&quot;: best_model.feature_importances_,
+            }
+        )
+        .sort_values(by=&quot;importance&quot;, ascending=False)
+        .reset_index(drop=True)
+    )
+
+    bundle = {
+        &quot;model&quot;: best_model,
+        &quot;feature_names&quot;: FEATURE_COLUMNS,
+        &quot;best_params&quot;: search.best_params_,
+        &quot;cv_f1&quot;: round(float(search.best_score_), 4),
+        &quot;holdout_metrics&quot;: {
+            &quot;accuracy&quot;: round(float(accuracy_score(y_test, predictions)), 4),
+            &quot;precision&quot;: round(float(precision_score(y_test, predictions)), 4),
+            &quot;recall&quot;: round(float(recall_score(y_test, predictions)), 4),
+            &quot;f1&quot;: round(float(f1_score(y_test, predictions)), 4),
+        },
+        &quot;confusion_matrix&quot;: confusion_matrix(y_test, predictions).tolist(),
+        &quot;classification_report&quot;: classification_report(y_test, predictions, target_names=[&quot;No Weed&quot;, &quot;Weed&quot;], digits=3),
+        &quot;feature_importance&quot;: feature_importance,
+        &quot;training_data&quot;: dataset,
+        &quot;prediction_mean&quot;: float(np.mean(probabilities)),
+    }
+
+    if save_bundle:
+        joblib.dump(bundle, MODEL_BUNDLE_PATH)
+        dataset.to_csv(TRAINING_DATA_PATH, index=False)
+
+    return bundle
+
+
+def load_or_train_classifier() -&gt; dict[str, Any]:
+    if MODEL_BUNDLE_PATH.exists():
+        return joblib.load(MODEL_BUNDLE_PATH)
+    return train_image_classifier(save_bundle=True)
+
+
+def explain_prediction(features: dict[str, float], label: int) -&gt; list[str]:
+    reasons: list[str] = []
+
+    if features[&quot;component_density&quot;] &gt; 4.0:
+        reasons.append(&quot;The vegetation mask is fragmented into many small patches, which often suggests weed growth between crop rows.&quot;)
+    if features[&quot;row_alignment&quot;] &lt; 0.45:
+        reasons.append(&quot;Vegetation is weakly aligned, so the scene looks less like orderly crop rows and more like scattered growth.&quot;)
+    if features[&quot;vegetation_coverage&quot;] &gt; 0.30:
+        reasons.append(&quot;Vegetation coverage is relatively high in this field view, which raises weed likelihood.&quot;)
+    if features[&quot;texture_variation&quot;] &gt; 0.12:
+        reasons.append(&quot;Texture variation is elevated, indicating a visually busy field surface rather than a uniform crop pattern.&quot;)
+
+    if label == 0:
+        if features[&quot;row_alignment&quot;] &gt;= 0.55:
+            reasons.append(&quot;Vegetation appears more aligned with consistent crop-row structure, which lowers weed likelihood.&quot;)
+        if features[&quot;component_density&quot;] &lt; 3.0:
+            reasons.append(&quot;The vegetation pattern is not highly fragmented, which is more consistent with cleaner plantation rows.&quot;)
+
+    if not reasons:
+        reasons.append(&quot;The model prediction is based on the overall vegetation pattern extracted from the uploaded RGB image.&quot;)
+
+    return reasons[:3]
+
+
+def analyze_image(image: Image.Image, model_bundle: dict[str, Any] | None = None) -&gt; AnalysisResult:
+    &quot;&quot;&quot;Predict weed presence from an uploaded image.&quot;&quot;&quot;
+
+    bundle = model_bundle or load_or_train_classifier()
+    model: RandomForestClassifier = bundle[&quot;model&quot;]
+
+    features, mask, resized = extract_image_features(image)
+    feature_frame = pd.DataFrame([features], columns=FEATURE_COLUMNS)
+
+    probabilities = model.predict_proba(feature_frame)[0]
+    label = int(model.predict(feature_frame)[0])
+    confidence = float(probabilities[label])
+
+    label_text = &quot;Weeds likely present&quot; if label == 1 else &quot;No obvious weeds detected&quot;
+    reasoning = explain_prediction(features, label)
+
+    feature_table = pd.DataFrame(
+        {
+            &quot;Feature&quot;: [name.replace(&quot;_&quot;, &quot; &quot;).title() for name in FEATURE_COLUMNS],
+            &quot;Value&quot;: [features[name] for name in FEATURE_COLUMNS],
+        }
+    )
+
+    return AnalysisResult(
+        label=label,
+        label_text=label_text,
+        confidence=confidence,
+        feature_values=features,
+        feature_table=feature_table,
+        reasoning=reasoning,
+        resized_image=resized,
+        vegetation_mask_image=create_mask_preview(mask),
+        overlay_image=create_overlay_image(resized, mask),
+    )
+</pre>
+<h4>train_image_model.py</h4><pre class='code-block'>&quot;&quot;&quot;Train the image-based weed detection prototype model.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+from image_model import MODEL_BUNDLE_PATH, TRAINING_DATA_PATH, train_image_classifier
+
+
+def main() -&gt; None:
+    bundle = train_image_classifier(save_bundle=True)
+
+    print(&quot;=== IMAGE-BASED WEED DETECTION MODEL ===\n&quot;)
+    print(&quot;Saved model bundle to:&quot;, MODEL_BUNDLE_PATH)
+    print(&quot;Saved synthetic feature data to:&quot;, TRAINING_DATA_PATH)
+    print(&quot;\nBest hyperparameters:&quot;)
+    print(bundle[&quot;best_params&quot;])
+    print(f&quot;\nBest CV F1-score: {bundle[&#x27;cv_f1&#x27;]:.4f}&quot;)
+    print(&quot;\nHoldout metrics:&quot;)
+    for metric_name, metric_value in bundle[&quot;holdout_metrics&quot;].items():
+        print(f&quot;{metric_name.title():&gt;10}: {metric_value:.4f}&quot;)
+    print(&quot;\nConfusion matrix:&quot;)
+    print(bundle[&quot;confusion_matrix&quot;])
+    print(&quot;\nClassification report:&quot;)
+    print(bundle[&quot;classification_report&quot;])
+    print(&quot;\nFeature importance:&quot;)
+    print(bundle[&quot;feature_importance&quot;].to_string(index=False))
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</pre>
+    <h3>8.2 Web Interface Code</h3>
+<h4>_tmp_frontend_index.html</h4><pre class='code-block'>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;AI Weed Detection System&lt;/title&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;background-animation&quot;&gt;&lt;/div&gt;
+    
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;header&gt;
+            &lt;h1&gt;AI Weed Detection&lt;/h1&gt;
+            &lt;p&gt;Upload a clear crop-field image to estimate weed presence from vegetation pattern analysis&lt;/p&gt;
+        &lt;/header&gt;
+
+        &lt;main&gt;
+            &lt;div id=&quot;drop-area&quot; class=&quot;drop-area&quot;&gt;
+                &lt;input type=&quot;file&quot; id=&quot;fileElem&quot; accept=&quot;image/png,image/jpeg,image/webp&quot; onchange=&quot;handleFiles(this.files)&quot;&gt;
+                &lt;label class=&quot;button&quot; for=&quot;fileElem&quot;&gt;Select an Image&lt;/label&gt;
+                &lt;div class=&quot;drop-text&quot;&gt;or drag and drop here&lt;/div&gt;
+                &lt;div class=&quot;upload-guidelines&quot;&gt;
+                    &lt;p&gt;&lt;strong&gt;Best accepted images:&lt;/strong&gt; full crop-field views, visible rows, daylight, and limited blur.&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Accepted size rule:&lt;/strong&gt; shorter side at least 128 px. Images between 128 px and 223 px are auto-adjusted before analysis.&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Rejected images:&lt;/strong&gt; extreme close-ups, dark/night photos, screenshots, non-field scenes, or very tiny images.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;validation-message&quot; class=&quot;validation-message hidden&quot;&gt;&lt;/div&gt;
+                &lt;div id=&quot;preview-container&quot; class=&quot;hidden&quot;&gt;
+                    &lt;img id=&quot;image-preview&quot; src=&quot;&quot; alt=&quot;Preview&quot;&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div id=&quot;loading-area&quot; class=&quot;hidden&quot;&gt;
+                &lt;div class=&quot;spinner&quot;&gt;&lt;/div&gt;
+                &lt;p id=&quot;loading-text&quot;&gt;Extracting image features...&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div id=&quot;result-area&quot; class=&quot;hidden&quot;&gt;
+                &lt;div class=&quot;result-header&quot;&gt;
+                    &lt;h2&gt;Analysis Complete&lt;/h2&gt;
+                    &lt;div id=&quot;classification-badge&quot; class=&quot;badge&quot;&gt;Processing...&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div id=&quot;processing-note&quot; class=&quot;processing-note hidden&quot;&gt;&lt;/div&gt;
+                
+                &lt;div class=&quot;features-grid&quot;&gt;
+                    &lt;div class=&quot;feature-card&quot;&gt;
+                        &lt;span class=&quot;feature-label&quot;&gt;Vegetation Coverage&lt;/span&gt;
+                        &lt;div class=&quot;progress-bar&quot;&gt;&lt;div id=&quot;bar-green&quot; class=&quot;fill&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+                        &lt;span id=&quot;val-green&quot; class=&quot;feature-val&quot;&gt;--&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;feature-card&quot;&gt;
+                        &lt;span class=&quot;feature-label&quot;&gt;Row Alignment&lt;/span&gt;
+                        &lt;div class=&quot;progress-bar&quot;&gt;&lt;div id=&quot;bar-ndvi&quot; class=&quot;fill&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+                        &lt;span id=&quot;val-ndvi&quot; class=&quot;feature-val&quot;&gt;--&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;feature-card&quot;&gt;
+                        &lt;span class=&quot;feature-label&quot;&gt;Component Density&lt;/span&gt;
+                        &lt;div class=&quot;progress-bar&quot;&gt;&lt;div id=&quot;bar-texture&quot; class=&quot;fill&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+                        &lt;span id=&quot;val-texture&quot; class=&quot;feature-val&quot;&gt;--&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;feature-card&quot;&gt;
+                        &lt;span class=&quot;feature-label&quot;&gt;Confidence&lt;/span&gt;
+                        &lt;div class=&quot;progress-bar&quot;&gt;&lt;div id=&quot;bar-conf&quot; class=&quot;fill&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+                        &lt;span id=&quot;val-conf&quot; class=&quot;feature-val&quot;&gt;--&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;button class=&quot;button reset-btn&quot; onclick=&quot;resetApp()&quot;&gt;Analyze Another Image&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/main&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Hidden canvas for image processing --&gt;
+    &lt;canvas id=&quot;hidden-canvas&quot; style=&quot;display:none;&quot;&gt;&lt;/canvas&gt;
+
+    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h4>_tmp_frontend_script.js</h4><pre class='code-block'>const dropArea = document.getElementById(&quot;drop-area&quot;);
+const uploadInput = document.getElementById(&quot;fileElem&quot;);
+const previewContainer = document.getElementById(&quot;preview-container&quot;);
+const imagePreview = document.getElementById(&quot;image-preview&quot;);
+const validationMessage = document.getElementById(&quot;validation-message&quot;);
+const processingNote = document.getElementById(&quot;processing-note&quot;);
+
+const loadingArea = document.getElementById(&quot;loading-area&quot;);
+const loadingText = document.getElementById(&quot;loading-text&quot;);
+const resultArea = document.getElementById(&quot;result-area&quot;);
+const canvas = document.getElementById(&quot;hidden-canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+
+const ACCEPTED_TYPES = [&quot;image/png&quot;, &quot;image/jpeg&quot;, &quot;image/webp&quot;];
+const MAX_FILE_SIZE = 6 * 1024 * 1024;
+const MIN_FILE_SIZE = 20 * 1024;
+const ABSOLUTE_MIN_DIMENSION = 128;
+const PREFERRED_MIN_DIMENSION = 224;
+const MAX_ASPECT_RATIO = 2.8;
+const MIN_ASPECT_RATIO = 0.45;
+
+let analyzedMetrics = null;
+let lastPrediction = null;
+let currentProcessingNote = &quot;&quot;;
+
+[&quot;dragenter&quot;, &quot;dragover&quot;, &quot;dragleave&quot;, &quot;drop&quot;].forEach((eventName) =&gt; {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(event) {
+    event.preventDefault();
+    event.stopPropagation();
+}
+
+[&quot;dragenter&quot;, &quot;dragover&quot;].forEach((eventName) =&gt; {
+    dropArea.addEventListener(eventName, () =&gt; dropArea.classList.add(&quot;highlight&quot;), false);
+});
+
+[&quot;dragleave&quot;, &quot;drop&quot;].forEach((eventName) =&gt; {
+    dropArea.addEventListener(eventName, () =&gt; dropArea.classList.remove(&quot;highlight&quot;), false);
+});
+
+dropArea.addEventListener(&quot;drop&quot;, handleDrop, false);
+
+function handleDrop(event) {
+    handleFiles(event.dataTransfer.files);
+}
+
+function handleFiles(files) {
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    clearValidation();
+    currentProcessingNote = &quot;&quot;;
+    resultArea.classList.add(&quot;hidden&quot;);
+    loadingArea.classList.add(&quot;hidden&quot;);
+
+    if (!ACCEPTED_TYPES.includes(file.type)) {
+        showValidation(&quot;Upload only PNG, JPEG, or WEBP crop-field images.&quot;);
+        return;
+    }
+
+    if (file.size &lt; MIN_FILE_SIZE) {
+        showValidation(&quot;This image is too small or too compressed. Upload a clearer crop-field photo.&quot;);
+        return;
+    }
+
+    if (file.size &gt; MAX_FILE_SIZE) {
+        showValidation(&quot;This image is too large. Keep the upload size under 6 MB.&quot;);
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () =&gt; {
+        const imageSource = reader.result;
+        imagePreview.src = imageSource;
+        previewContainer.classList.remove(&quot;hidden&quot;);
+
+        const img = new Image();
+        img.onload = () =&gt; {
+            const metrics = extractImageMetrics(img);
+            const validation = validateImageForAnalysis(img, metrics);
+
+            if (!validation.ok) {
+                showValidation(validation.message);
+                return;
+            }
+
+            analyzedMetrics = metrics;
+            currentProcessingNote = validation.note || &quot;&quot;;
+            dropArea.classList.add(&quot;hidden&quot;);
+            loadingArea.classList.remove(&quot;hidden&quot;);
+            simulateLoadingProcess();
+        };
+        img.onerror = () =&gt; {
+            showValidation(&quot;The selected file could not be read as a valid image.&quot;);
+        };
+        img.src = imageSource;
+    };
+    reader.readAsDataURL(file);
+}
+
+function extractImageMetrics(img) {
+    const MAX_DIM = 640;
+    let scale = 1;
+    if (Math.min(img.width, img.height) &lt; PREFERRED_MIN_DIMENSION) {
+        scale = Math.max(scale, PREFERRED_MIN_DIMENSION / Math.min(img.width, img.height));
+    }
+    if (Math.max(img.width, img.height) * scale &gt; MAX_DIM) {
+        scale = MAX_DIM / Math.max(img.width, img.height);
+    }
+
+    const drawWidth = Math.max(1, Math.round(img.width * scale));
+    const drawHeight = Math.max(1, Math.round(img.height * scale));
+
+    canvas.width = drawWidth;
+    canvas.height = drawHeight;
+    ctx.clearRect(0, 0, drawWidth, drawHeight);
+    ctx.drawImage(img, 0, 0, drawWidth, drawHeight);
+
+    const imageData = ctx.getImageData(0, 0, drawWidth, drawHeight);
+    const data = imageData.data;
+    const totalPixels = drawWidth * drawHeight;
+
+    const grayscale = new Float32Array(totalPixels);
+    const mask = new Uint8Array(totalPixels);
+
+    let vegetationPixels = 0;
+    let exgSum = 0;
+    let exgSumSquares = 0;
+    let overallBrightness = 0;
+
+    for (let index = 0, pixelIndex = 0; index &lt; data.length; index += 4, pixelIndex += 1) {
+        const r = data[index] / 255;
+        const g = data[index + 1] / 255;
+        const b = data[index + 2] / 255;
+
+        const sum = Math.max(r + g + b, 1e-6);
+        const rn = r / sum;
+        const gn = g / sum;
+        const bn = b / sum;
+        const exg = (2 * gn) - rn - bn;
+
+        const isVegetation = exg &gt; 0.08 &amp;&amp; g &gt; (r * 0.95) &amp;&amp; g &gt; (b * 1.05);
+        if (isVegetation) {
+            vegetationPixels += 1;
+            mask[pixelIndex] = 1;
+            exgSum += exg;
+            exgSumSquares += exg * exg;
+        }
+
+        const gray = (0.299 * r) + (0.587 * g) + (0.114 * b);
+        grayscale[pixelIndex] = gray;
+        overallBrightness += gray;
+    }
+
+    let diffSum = 0;
+    let diffCount = 0;
+    for (let row = 0; row &lt; drawHeight; row += 1) {
+        for (let col = 0; col &lt; drawWidth; col += 1) {
+            const currentIndex = (row * drawWidth) + col;
+            if (col + 1 &lt; drawWidth) {
+                diffSum += Math.abs(grayscale[currentIndex] - grayscale[currentIndex + 1]);
+                diffCount += 1;
+            }
+            if (row + 1 &lt; drawHeight) {
+                diffSum += Math.abs(grayscale[currentIndex] - grayscale[currentIndex + drawWidth]);
+                diffCount += 1;
+            }
+        }
+    }
+
+    const vegetationCoverage = vegetationPixels / totalPixels;
+    const exgMean = vegetationPixels &gt; 0 ? (exgSum / vegetationPixels) : 0;
+    const exgVariance = vegetationPixels &gt; 0 ? Math.max((exgSumSquares / vegetationPixels) - (exgMean * exgMean), 0) : 0;
+    const exgStd = Math.sqrt(exgVariance);
+    const textureVariation = diffCount &gt; 0 ? diffSum / diffCount : 0;
+    const brightness = overallBrightness / totalPixels;
+
+    const smallMask = downsampleMask(mask, drawWidth, drawHeight, 64);
+    const componentCount = countConnectedComponents(smallMask.mask, smallMask.width, smallMask.height);
+    const componentDensity = componentCount / Math.max((smallMask.width * smallMask.height) / 4096, 1);
+    const rowAlignment = computeRowAlignment(mask, drawWidth, drawHeight);
+
+    return {
+        width: drawWidth,
+        height: drawHeight,
+        vegetationCoverage,
+        excessGreenMean: exgMean,
+        excessGreenStd: exgStd,
+        textureVariation,
+        componentDensity,
+        rowAlignment,
+        brightness,
+    };
+}
+
+function downsampleMask(mask, width, height, maxSide) {
+    const scale = Math.min(maxSide / Math.max(width, height), 1);
+    const smallWidth = Math.max(1, Math.round(width * scale));
+    const smallHeight = Math.max(1, Math.round(height * scale));
+    const smallMask = new Uint8Array(smallWidth * smallHeight);
+
+    for (let row = 0; row &lt; smallHeight; row += 1) {
+        for (let col = 0; col &lt; smallWidth; col += 1) {
+            const srcRow = Math.min(height - 1, Math.floor((row / smallHeight) * height));
+            const srcCol = Math.min(width - 1, Math.floor((col / smallWidth) * width));
+            smallMask[(row * smallWidth) + col] = mask[(srcRow * width) + srcCol];
+        }
+    }
+
+    return { mask: smallMask, width: smallWidth, height: smallHeight };
+}
+
+function countConnectedComponents(mask, width, height) {
+    const visited = new Uint8Array(mask.length);
+    let componentCount = 0;
+
+    for (let row = 0; row &lt; height; row += 1) {
+        for (let col = 0; col &lt; width; col += 1) {
+            const startIndex = (row * width) + col;
+            if (!mask[startIndex] || visited[startIndex]) {
+                continue;
+            }
+
+            componentCount += 1;
+            const stack = [startIndex];
+            visited[startIndex] = 1;
+
+            while (stack.length &gt; 0) {
+                const current = stack.pop();
+                const currentRow = Math.floor(current / width);
+                const currentCol = current % width;
+
+                for (let deltaRow = -1; deltaRow &lt;= 1; deltaRow += 1) {
+                    for (let deltaCol = -1; deltaCol &lt;= 1; deltaCol += 1) {
+                        if (deltaRow === 0 &amp;&amp; deltaCol === 0) continue;
+
+                        const nextRow = currentRow + deltaRow;
+                        const nextCol = currentCol + deltaCol;
+                        if (nextRow &lt; 0 || nextRow &gt;= height || nextCol &lt; 0 || nextCol &gt;= width) {
+                            continue;
+                        }
+
+                        const nextIndex = (nextRow * width) + nextCol;
+                        if (!mask[nextIndex] || visited[nextIndex]) {
+                            continue;
+                        }
+
+                        visited[nextIndex] = 1;
+                        stack.push(nextIndex);
+                    }
+                }
+            }
+        }
+    }
+
+    return componentCount;
+}
+
+function computeRowAlignment(mask, width, height) {
+    const rowProfile = new Array(height).fill(0);
+    const colProfile = new Array(width).fill(0);
+
+    for (let row = 0; row &lt; height; row += 1) {
+        for (let col = 0; col &lt; width; col += 1) {
+            const value = mask[(row * width) + col];
+            rowProfile[row] += value;
+            colProfile[col] += value;
+        }
+    }
+
+    for (let row = 0; row &lt; height; row += 1) {
+        rowProfile[row] /= Math.max(width, 1);
+    }
+    for (let col = 0; col &lt; width; col += 1) {
+        colProfile[col] /= Math.max(height, 1);
+    }
+
+    const smoothedRows = movingAverage(rowProfile, 11);
+    const smoothedCols = movingAverage(colProfile, 11);
+    const alignment = Math.max(computeStandardDeviation(smoothedRows), computeStandardDeviation(smoothedCols));
+    return clamp(alignment / 0.22, 0, 1);
+}
+
+function movingAverage(values, windowSize) {
+    const output = new Array(values.length).fill(0);
+    const radius = Math.floor(windowSize / 2);
+
+    for (let index = 0; index &lt; values.length; index += 1) {
+        let sum = 0;
+        let count = 0;
+        for (let offset = -radius; offset &lt;= radius; offset += 1) {
+            const current = index + offset;
+            if (current &lt; 0 || current &gt;= values.length) continue;
+            sum += values[current];
+            count += 1;
+        }
+        output[index] = count &gt; 0 ? (sum / count) : values[index];
+    }
+
+    return output;
+}
+
+function computeStandardDeviation(values) {
+    if (values.length === 0) return 0;
+    const mean = values.reduce((sum, value) =&gt; sum + value, 0) / values.length;
+    const variance = values.reduce((sum, value) =&gt; sum + ((value - mean) ** 2), 0) / values.length;
+    return Math.sqrt(Math.max(variance, 0));
+}
+
+function validateImageForAnalysis(img, metrics) {
+    const aspectRatio = img.width / img.height;
+    const shorterSide = Math.min(img.width, img.height);
+
+    if (shorterSide &lt; ABSOLUTE_MIN_DIMENSION) {
+        return {
+            ok: false,
+            message: &quot;Image resolution is too low. Upload a field image whose shorter side is at least 128 pixels.&quot;,
+        };
+    }
+
+    if (aspectRatio &lt; MIN_ASPECT_RATIO || aspectRatio &gt; MAX_ASPECT_RATIO) {
+        return { ok: false, message: &quot;Image shape is unusual. Upload a normal landscape or portrait field image.&quot; };
+    }
+
+    if (metrics.brightness &lt; 0.16) {
+        return { ok: false, message: &quot;The image is too dark for reliable weed detection. Use a brighter daylight field image.&quot; };
+    }
+
+    if (metrics.brightness &gt; 0.94) {
+        return { ok: false, message: &quot;The image is overexposed. Upload an image with more balanced lighting.&quot; };
+    }
+
+    if (metrics.textureVariation &lt; 0.02) {
+        return { ok: false, message: &quot;The image looks too blurred or too flat. Upload a clearer crop-field photo.&quot; };
+    }
+
+    if (metrics.vegetationCoverage &lt; 0.03) {
+        return { ok: false, message: &quot;Not enough visible vegetation was found. Upload a crop image that clearly shows the plantation area.&quot; };
+    }
+
+    if (metrics.vegetationCoverage &gt; 0.97) {
+        return { ok: false, message: &quot;The image is too close to the leaves. Upload a wider field view that shows crop rows.&quot; };
+    }
+
+    if (shorterSide &lt; PREFERRED_MIN_DIMENSION) {
+        return {
+            ok: true,
+            note: `This image was auto-adjusted from ${img.width} x ${img.height} so the shorter side reaches the preferred 224 px analysis size.`,
+        };
+    }
+
+    return { ok: true, note: &quot;&quot; };
+}
+
+function computePrediction(metrics) {
+    const coverageScore = normalize(metrics.vegetationCoverage, 0.12, 0.55);
+    const fragmentationScore = normalize(metrics.componentDensity, 1.2, 8.0);
+    const disorderScore = 1 - metrics.rowAlignment;
+    const textureScore = normalize(metrics.textureVariation, 0.03, 0.14);
+    const weakGreennessScore = normalize(0.30 - metrics.excessGreenMean, 0.0, 0.18);
+
+    let weedProbability =
+        0.18 +
+        (0.24 * coverageScore) +
+        (0.26 * fragmentationScore) +
+        (0.22 * disorderScore) +
+        (0.18 * textureScore) +
+        (0.10 * weakGreennessScore);
+
+    if (metrics.rowAlignment &gt; 0.62 &amp;&amp; metrics.componentDensity &lt; 2.8 &amp;&amp; metrics.textureVariation &lt; 0.10) {
+        weedProbability -= 0.22;
+    }
+
+    if (metrics.rowAlignment &lt; 0.35 &amp;&amp; metrics.componentDensity &gt; 4.0 &amp;&amp; metrics.vegetationCoverage &gt; 0.12) {
+        weedProbability += 0.18;
+    }
+
+    weedProbability = clamp(weedProbability, 0.03, 0.97);
+    const isWeed = weedProbability &gt;= 0.56;
+    const confidence = isWeed ? weedProbability : (1 - weedProbability);
+
+    return {
+        isWeed,
+        weedProbability,
+        confidence,
+    };
+}
+
+function simulateLoadingProcess() {
+    const steps = [
+        &quot;Validating image suitability...&quot;,
+        &quot;Extracting vegetation mask...&quot;,
+        &quot;Computing field-pattern features...&quot;,
+        &quot;Estimating weed likelihood...&quot;,
+    ];
+
+    let step = 0;
+    loadingText.innerText = steps[0];
+
+    const interval = setInterval(() =&gt; {
+        step += 1;
+        if (step &lt; steps.length) {
+            loadingText.innerText = steps[step];
+        } else {
+            clearInterval(interval);
+            showResults();
+        }
+    }, 700);
+}
+
+function showResults() {
+    if (!analyzedMetrics) {
+        showValidation(&quot;No valid image is ready for analysis.&quot;);
+        return;
+    }
+
+    lastPrediction = computePrediction(analyzedMetrics);
+    loadingArea.classList.add(&quot;hidden&quot;);
+    resultArea.classList.remove(&quot;hidden&quot;);
+
+    const badge = document.getElementById(&quot;classification-badge&quot;);
+    processingNote.textContent = currentProcessingNote;
+    processingNote.classList.toggle(&quot;hidden&quot;, !currentProcessingNote);
+    if (lastPrediction.confidence &lt; 0.62) {
+        badge.innerText = lastPrediction.isWeed ? &quot;Possible Weed - Retake Image&quot; : &quot;Likely Crop - Retake Image&quot;;
+    } else {
+        badge.innerText = lastPrediction.isWeed ? &quot;Detected: WEED LIKELY&quot; : &quot;Detected: CLEANER CROP&quot;;
+    }
+    badge.className = &quot;badge &quot; + (lastPrediction.isWeed ? &quot;weed&quot; : &quot;crop&quot;);
+
+    animateBar(&quot;bar-green&quot;, &quot;val-green&quot;, analyzedMetrics.vegetationCoverage, 1.0);
+    animateBar(&quot;bar-ndvi&quot;, &quot;val-ndvi&quot;, analyzedMetrics.rowAlignment, 1.0);
+    animateBar(&quot;bar-texture&quot;, &quot;val-texture&quot;, analyzedMetrics.componentDensity, 10.0);
+    animateBar(&quot;bar-conf&quot;, &quot;val-conf&quot;, lastPrediction.confidence, 1.0, true);
+}
+
+function animateBar(barId, valueId, value, maxValue, isPercent = false) {
+    const bar = document.getElementById(barId);
+    const text = document.getElementById(valueId);
+
+    setTimeout(() =&gt; {
+        const percent = clamp((value / maxValue) * 100, 0, 100);
+        bar.style.width = percent + &quot;%&quot;;
+        text.innerText = isPercent ? `${(value * 100).toFixed(1)}%` : value.toFixed(2);
+    }, 100);
+}
+
+function normalize(value, minValue, maxValue) {
+    if (maxValue &lt;= minValue) return 0;
+    return clamp((value - minValue) / (maxValue - minValue), 0, 1);
+}
+
+function clamp(value, minValue, maxValue) {
+    return Math.min(Math.max(value, minValue), maxValue);
+}
+
+function clearValidation() {
+    validationMessage.textContent = &quot;&quot;;
+    validationMessage.classList.add(&quot;hidden&quot;);
+}
+
+function showValidation(message) {
+    validationMessage.textContent = message;
+    validationMessage.classList.remove(&quot;hidden&quot;);
+    loadingArea.classList.add(&quot;hidden&quot;);
+    resultArea.classList.add(&quot;hidden&quot;);
+    processingNote.textContent = &quot;&quot;;
+    processingNote.classList.add(&quot;hidden&quot;);
+    dropArea.classList.remove(&quot;hidden&quot;);
+}
+
+function resetApp() {
+    analyzedMetrics = null;
+    lastPrediction = null;
+    currentProcessingNote = &quot;&quot;;
+    uploadInput.value = &quot;&quot;;
+    imagePreview.src = &quot;&quot;;
+    previewContainer.classList.add(&quot;hidden&quot;);
+    clearValidation();
+    resultArea.classList.add(&quot;hidden&quot;);
+    loadingArea.classList.add(&quot;hidden&quot;);
+    processingNote.textContent = &quot;&quot;;
+    processingNote.classList.add(&quot;hidden&quot;);
+    dropArea.classList.remove(&quot;hidden&quot;);
+    document.querySelectorAll(&quot;.fill&quot;).forEach((element) =&gt; {
+        element.style.width = &quot;0%&quot;;
+    });
+    document.querySelectorAll(&quot;.feature-val&quot;).forEach((element) =&gt; {
+        element.innerText = &quot;--&quot;;
+    });
+}
+</pre>
+<h4>_tmp_frontend_style.css</h4><pre class='code-block'>:root {
+    --primary: #10B981;
+    --primary-dark: #059669;
+    --bg-dark: #0f172a;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --error: #ef4444;
+}
+
+body {
+    margin: 0;
+    font-family: &#x27;Outfit&#x27;, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.background-animation {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%);
+    z-index: -1;
+    animation: rotate 60s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3rem;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #34d399, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.drop-area {
+    border: 2px dashed rgba(52, 211, 153, 0.5);
+    border-radius: 16px;
+    padding: 3rem 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+    overflow: hidden;
+}
+
+.drop-area.highlight {
+    border-color: var(--primary);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+#fileElem {
+    display: none;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border: none;
+    font-family: &#x27;Outfit&#x27;, sans-serif;
+    font-size: 1rem;
+}
+
+.button:hover {
+    background: var(--primary-dark);
+}
+
+.drop-text {
+    margin-top: 1rem;
+    color: var(--text-muted);
+}
+
+.upload-guidelines {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    text-align: left;
+}
+
+.upload-guidelines p {
+    margin: 0.35rem 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.validation-message {
+    margin-top: 1rem;
+    padding: 0.95rem 1rem;
+    border-radius: 12px;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fecaca;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.processing-note {
+    margin-bottom: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.35);
+    color: #bfdbfe;
+    text-align: left;
+    line-height: 1.5;
+}
+
+#preview-container {
+    margin-top: 1.5rem;
+}
+
+#image-preview {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Loader */
+#loading-area {
+    padding: 3rem 0;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1.5rem auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading-text {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Results */
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.result-header h2 {
+    margin: 0;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.badge.crop {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+}
+
+.badge.weed {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.feature-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.fill {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-val {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.reset-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.reset-btn:hover {
+    background: rgba(16, 185, 129, 0.1);
+}
+</pre>
+
+    <h2 class="section-title page-break">Chapter 9: Applications</h2>
+    <ul>
+      <li>Site-specific weed monitoring in precision agriculture</li>
+      <li>Farmer-facing crop-field screening tools with visual evidence</li>
+      <li>Decision support for targeted herbicide spraying</li>
+      <li>Integration with drone or mobile-field imaging pipelines in future work</li>
+      <li>Educational demonstrations of computer vision in agriculture</li>
+    </ul>
+
+    <h2 class="section-title">Chapter 10: Conclusion and Future Scope</h2>
+    <p>
+      The final project successfully upgrades the earlier prototype into a working image-based weed-detection system
+      with a pretrained YOLO detector, dual user interfaces, real runtime verification, and report-ready outputs. The
+      most important correction made during finalization was replacing the over-restrictive image rule with a more
+      practical two-level policy: truly tiny images are rejected, while smaller usable images are auto-upscaled and
+      analyzed with a clear note shown to the user.
+    </p>
+    <p>
+      Future improvements should include evaluation on a full labeled crop/weed dataset, fine-tuning of the detection
+      model for specific crops and weed species, and connecting the lightweight browser demo directly to the same
+      backend used by the Streamlit application.
+    </p>
+
+    <h2 class="section-title">References</h2>
+    <ol>
+      <li>A. Olsen et al., "DeepWeeds: A Multiclass Weed Species Image Dataset for Deep Learning," <em>Scientific Reports</em>, 2019.</li>
+      <li>F. H. Juwono et al., "Machine learning for weed-plant discrimination in agriculture 5.0: An in-depth review," <em>Artificial Intelligence in Agriculture</em>, 2023.</li>
+      <li>"Weed Detection Using Deep Learning: A Systematic Literature Review," <em>Sensors</em>, 2023.</li>
+      <li>CropAndWeed dataset repository, GitHub.</li>
+      <li>weedblaster-vision-yolov8s pretrained model source, Hugging Face.</li>
+      <li>IRJET-V11I5168.pdf, supporting implementation-style reference supplied by the student.</li>
+      <li>IJCRT2203197.pdf, supporting review reference supplied by the student.</li>
+    </ol>
+  </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+__pycache__/
+.mplconfig/
+.ultralytics/
+Ultralytics/
+chrome-headless-profile/
+streamlit_stdout.log
+streamlit_stderr.log
+~$*

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <rect width="1200" height="760" fill="#f6f5ef"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <rect x="48" y="42" width="1104" height="676" rx="30" fill="#ffffff" stroke="#d5dfd7" stroke-width="2"/>
+    <rect x="48" y="42" width="1104" height="130" rx="30" fill="#1f5a44"/>
+    <text x="110" y="95" font-size="30" font-weight="700" fill="#ffffff">Crop Field Weed Detector</text>
+    <text x="110" y="127" font-size="16" fill="#deefe6">Upload an RGB field image and inspect the result, vegetation mask, and confidence.</text>
+
+    <rect x="84" y="198" width="290" height="470" rx="22" fill="#f8fbf9" stroke="#d9e7de"/>
+    <text x="114" y="240" font-size="22" font-weight="700" fill="#1f2933">Sidebar</text>
+    <text x="114" y="278" font-size="16" fill="#52606d">- Upload widget</text>
+    <text x="114" y="306" font-size="16" fill="#52606d">- Model summary</text>
+    <text x="114" y="334" font-size="16" fill="#52606d">- Research links</text>
+    <text x="114" y="362" font-size="16" fill="#52606d">- Limitation note</text>
+
+    <rect x="410" y="198" width="706" height="120" rx="22" fill="#eef7f1" stroke="#cfe2d5"/>
+    <text x="442" y="244" font-size="26" font-weight="700" fill="#1f5a44">Prediction Card</text>
+    <text x="442" y="278" font-size="18" fill="#1f2933">Weeds likely present / No obvious weeds detected</text>
+    <text x="442" y="304" font-size="16" fill="#52606d">Confidence score and explanation shown here</text>
+
+    <rect x="410" y="340" width="210" height="200" rx="20" fill="#fafcfb" stroke="#d8e4dc"/>
+    <rect x="658" y="340" width="210" height="200" rx="20" fill="#fafcfb" stroke="#d8e4dc"/>
+    <rect x="906" y="340" width="210" height="200" rx="20" fill="#fafcfb" stroke="#d8e4dc"/>
+    <text x="515" y="380" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2933">Original Image</text>
+    <text x="763" y="380" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2933">Vegetation Mask</text>
+    <text x="1011" y="380" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2933">Overlay</text>
+
+    <rect x="440" y="404" width="150" height="98" rx="16" fill="#e4efe8"/>
+    <rect x="688" y="404" width="150" height="98" rx="16" fill="#d2e6d8"/>
+    <rect x="936" y="404" width="150" height="98" rx="16" fill="#f0e0c4"/>
+
+    <rect x="410" y="566" width="706" height="102" rx="22" fill="#f8fbf9" stroke="#d8e4dc"/>
+    <text x="442" y="606" font-size="22" font-weight="700" fill="#1f2933">Extracted Metrics</text>
+    <text x="442" y="636" font-size="16" fill="#52606d">Vegetation coverage, ExG mean/std, texture variation, component density, and row alignment</text>
+  </g>
+</svg>

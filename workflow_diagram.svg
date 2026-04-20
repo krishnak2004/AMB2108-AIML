@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Weed Detection Workflow</title>
+  <desc id="desc">Workflow from synthetic data generation to model evaluation and interpretation.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#1b6b49"/>
+    </marker>
+    <linearGradient id="panel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#effaf4"/>
+      <stop offset="100%" stop-color="#d7eee2"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="320" rx="24" fill="#f8fbf9"/>
+
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="600" y="42" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2933">Weed Detection Pipeline</text>
+    <text x="600" y="72" text-anchor="middle" font-size="16" fill="#52606d">Random Forest workflow used in the laboratory experiment</text>
+
+    <g>
+      <rect x="36" y="112" width="190" height="112" rx="18" fill="url(#panel)" stroke="#9fcab0" stroke-width="2"/>
+      <text x="131" y="146" text-anchor="middle" font-size="20" font-weight="700" fill="#1b6b49">1. Data Generation</text>
+      <text x="131" y="176" text-anchor="middle" font-size="15" fill="#1f2933">Synthetic, domain-inspired</text>
+      <text x="131" y="198" text-anchor="middle" font-size="15" fill="#1f2933">crop and weed features</text>
+    </g>
+
+    <g>
+      <rect x="266" y="112" width="190" height="112" rx="18" fill="url(#panel)" stroke="#9fcab0" stroke-width="2"/>
+      <text x="361" y="146" text-anchor="middle" font-size="20" font-weight="700" fill="#1b6b49">2. Stratified Split</text>
+      <text x="361" y="176" text-anchor="middle" font-size="15" fill="#1f2933">80% training set</text>
+      <text x="361" y="198" text-anchor="middle" font-size="15" fill="#1f2933">20% held-out test set</text>
+    </g>
+
+    <g>
+      <rect x="496" y="112" width="190" height="112" rx="18" fill="url(#panel)" stroke="#9fcab0" stroke-width="2"/>
+      <text x="591" y="146" text-anchor="middle" font-size="20" font-weight="700" fill="#1b6b49">3. Model Tuning</text>
+      <text x="591" y="176" text-anchor="middle" font-size="15" fill="#1f2933">GridSearchCV with</text>
+      <text x="591" y="198" text-anchor="middle" font-size="15" fill="#1f2933">5-fold StratifiedKFold</text>
+    </g>
+
+    <g>
+      <rect x="726" y="112" width="190" height="112" rx="18" fill="url(#panel)" stroke="#9fcab0" stroke-width="2"/>
+      <text x="821" y="146" text-anchor="middle" font-size="20" font-weight="700" fill="#1b6b49">4. Evaluation</text>
+      <text x="821" y="176" text-anchor="middle" font-size="15" fill="#1f2933">Accuracy, precision,</text>
+      <text x="821" y="198" text-anchor="middle" font-size="15" fill="#1f2933">recall, F1, confusion matrix</text>
+    </g>
+
+    <g>
+      <rect x="956" y="112" width="208" height="112" rx="18" fill="url(#panel)" stroke="#9fcab0" stroke-width="2"/>
+      <text x="1060" y="146" text-anchor="middle" font-size="20" font-weight="700" fill="#1b6b49">5. Interpretation</text>
+      <text x="1060" y="176" text-anchor="middle" font-size="15" fill="#1f2933">Feature importance and</text>
+      <text x="1060" y="198" text-anchor="middle" font-size="15" fill="#1f2933">precision agriculture use</text>
+    </g>
+
+    <line x1="226" y1="168" x2="266" y2="168" stroke="#1b6b49" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="456" y1="168" x2="496" y2="168" stroke="#1b6b49" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="686" y1="168" x2="726" y2="168" stroke="#1b6b49" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="916" y1="168" x2="956" y2="168" stroke="#1b6b49" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+</svg>

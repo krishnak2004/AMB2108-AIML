@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Feature Importance Chart</title>
+  <desc id="desc">Horizontal bar chart showing NDVI, GreenIndex, Height, Texture, and Moisture importances.</desc>
+  <rect x="0" y="0" width="1200" height="760" fill="#fbfcfd"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="600" y="54" text-anchor="middle" font-size="30" font-weight="700" fill="#1f2933">Random Forest Feature Importance</text>
+    <text x="600" y="86" text-anchor="middle" font-size="17" fill="#52606d">Higher values indicate stronger contribution to classification</text>
+
+    <line x1="240" y1="130" x2="240" y2="650" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="240" y1="650" x2="1050" y2="650" stroke="#94a3b8" stroke-width="2"/>
+
+    <g fill="#94a3b8" font-size="14">
+      <text x="240" y="682" text-anchor="middle">0.0</text>
+      <text x="402" y="682" text-anchor="middle">0.1</text>
+      <text x="564" y="682" text-anchor="middle">0.2</text>
+      <text x="726" y="682" text-anchor="middle">0.3</text>
+      <text x="888" y="682" text-anchor="middle">0.4</text>
+      <text x="1050" y="682" text-anchor="middle">0.5</text>
+    </g>
+
+    <g stroke="#e2e8f0" stroke-width="1">
+      <line x1="402" y1="130" x2="402" y2="650"/>
+      <line x1="564" y1="130" x2="564" y2="650"/>
+      <line x1="726" y1="130" x2="726" y2="650"/>
+      <line x1="888" y1="130" x2="888" y2="650"/>
+      <line x1="1050" y1="130" x2="1050" y2="650"/>
+    </g>
+
+    <g font-size="22" fill="#1f2933">
+      <text x="64" y="185">NDVI</text>
+      <text x="64" y="285">GreenIndex</text>
+      <text x="64" y="385">Height</text>
+      <text x="64" y="485">Texture</text>
+      <text x="64" y="585">Moisture</text>
+    </g>
+
+    <rect x="240" y="145" width="745" height="54" rx="14" fill="#1b6b49"/>
+    <rect x="240" y="245" width="353" height="54" rx="14" fill="#3a8762"/>
+    <rect x="240" y="345" width="350" height="54" rx="14" fill="#4f9e76"/>
+    <rect x="240" y="445" width="128" height="54" rx="14" fill="#74b892"/>
+    <rect x="240" y="545" width="42" height="54" rx="14" fill="#a5d2b8"/>
+
+    <g font-size="22" font-weight="700" fill="#1f2933">
+      <text x="1008" y="181">0.460</text>
+      <text x="615" y="281">0.218</text>
+      <text x="612" y="381">0.216</text>
+      <text x="392" y="481">0.079</text>
+      <text x="306" y="581">0.026</text>
+    </g>
+  </g>
+</svg>

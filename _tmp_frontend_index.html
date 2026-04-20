@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Weed Detection System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <header>
+            <h1>AI Weed Detection</h1>
+            <p>Upload a clear crop-field image to estimate weed presence from vegetation pattern analysis</p>
+        </header>
+
+        <main>
+            <div id="drop-area" class="drop-area">
+                <input type="file" id="fileElem" accept="image/png,image/jpeg,image/webp" onchange="handleFiles(this.files)">
+                <label class="button" for="fileElem">Select an Image</label>
+                <div class="drop-text">or drag and drop here</div>
+                <div class="upload-guidelines">
+                    <p><strong>Best accepted images:</strong> full crop-field views, visible rows, daylight, and limited blur.</p>
+                    <p><strong>Accepted size rule:</strong> shorter side at least 128 px. Images between 128 px and 223 px are auto-adjusted before analysis.</p>
+                    <p><strong>Rejected images:</strong> extreme close-ups, dark/night photos, screenshots, non-field scenes, or very tiny images.</p>
+                </div>
+                <div id="validation-message" class="validation-message hidden"></div>
+                <div id="preview-container" class="hidden">
+                    <img id="image-preview" src="" alt="Preview">
+                </div>
+            </div>
+
+            <div id="loading-area" class="hidden">
+                <div class="spinner"></div>
+                <p id="loading-text">Extracting image features...</p>
+            </div>
+
+            <div id="result-area" class="hidden">
+                <div class="result-header">
+                    <h2>Analysis Complete</h2>
+                    <div id="classification-badge" class="badge">Processing...</div>
+                </div>
+                <div id="processing-note" class="processing-note hidden"></div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-label">Vegetation Coverage</span>
+                        <div class="progress-bar"><div id="bar-green" class="fill"></div></div>
+                        <span id="val-green" class="feature-val">--</span>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-label">Row Alignment</span>
+                        <div class="progress-bar"><div id="bar-ndvi" class="fill"></div></div>
+                        <span id="val-ndvi" class="feature-val">--</span>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-label">Component Density</span>
+                        <div class="progress-bar"><div id="bar-texture" class="fill"></div></div>
+                        <span id="val-texture" class="feature-val">--</span>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-label">Confidence</span>
+                        <div class="progress-bar"><div id="bar-conf" class="fill"></div></div>
+                        <span id="val-conf" class="feature-val">--</span>
+                    </div>
+                </div>
+                
+                <button class="button reset-btn" onclick="resetApp()">Analyze Another Image</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Hidden canvas for image processing -->
+    <canvas id="hidden-canvas" style="display:none;"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
